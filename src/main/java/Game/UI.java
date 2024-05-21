@@ -4,16 +4,23 @@ import Disease.Bacteria;
 import Disease.DiseaseAgent;
 import Disease.Virus;
 import Word.Country;
+import Word.Europe;
 
 import java.util.Scanner;
 
 public class UI {
-    private Game game;
-    private  Scanner scanner;
-    public UI(Scanner scanner, Game game){
+
+    public UI(Scanner scanner, Game game, Europe europe){
         this.scanner = scanner;
         this.game = game;
+        this.europe = europe;
     }
+
+    private int day = 0;
+    Europe europe;
+    private Game game;
+    private  Scanner scanner;
+
 
     public void showHomeScreen() {
         horizontalCentre();
@@ -115,17 +122,79 @@ public class UI {
 
     public void gameplay(){
 
+        showGlobalStatistic();
+        showMenu();
+
+    }
+
+    public void showGlobalStatistic(){
+        int infectionCountries = 0;
+        int notInfectionCountries = 0;
+
         Country[] objectCountries = game.getCountriesInMainArr();
 
         System.out.println();
         System.out.println();
         System.out.println();
 
-        System.out.println("not infection countries : ");
+        System.out.println("Not infection countries : ");
         for(int i = 0; i<49; i++){
             if(!objectCountries[i].getInfectionStatus()){
                 System.out.print(objectCountries[i].getName() + ", ");
+                notInfectionCountries++;
             }
         }
+        System.out.println();
+        System.out.println();
+        System.out.println("Infection countries: ");
+        for(int i = 0; i<49; i++){
+            if(objectCountries[i].getInfectionStatus()){
+                System.out.print(objectCountries[i].getName() + ", ");
+                infectionCountries++;
+            }
+        }
+
+        System.out.println("------------------------------------------------------------------------------------------" +
+                "------------------------------------------------------------------------------------------");
+        System.out.println();
+        System.out.println("Number of infection countries : " + infectionCountries);
+        System.out.println("Number of not infection countries : " + notInfectionCountries);
+        System.out.println("Global health status - " + europe.getGlobalHealthStatus() + "%");
+        System.out.println("Drug research progress - " + europe.getDrugResearchProgress()+"%");
+        infectionCountries = 0;
+        notInfectionCountries = 0;
+        System.out.println();
+        System.out.println();
+        System.out.println();
+
+    }
+    public void showMenu(){
+        horizontalCentre();
+        System.out.print("Choose what you want to do");
+        System.out.println();
+        horizontalCentre();
+        System.out.print("1 - Moving to next day");
+        System.out.println();
+        horizontalCentre();
+        System.out.print("2 - Upgrade your disease");
+        System.out.println();
+        horizontalCentre();
+        System.out.print("3 - Show your disease statistic");
+        System.out.println();
+        horizontalCentre();
+        System.out.print("4 - Exit Game");
+
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+
+        //Trzeba zrobic switch case do wyboru
+
+    }
+
+    public void NextDay(){
+        day++;
+        clearConsole();
+        //Tu trzeba bedzie dodac metode ktora zaraża ludzi, modyfikuje sie jakos randomowo, i zwieksza/albo zmniejsza podstęp lekarstwa itd
+        System.out.println("Welcome in Day " + day);
     }
 }

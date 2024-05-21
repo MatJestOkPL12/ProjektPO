@@ -23,7 +23,7 @@ public class Game {
         this.researchTeam = new ResearchTeam();
         this.diseaseAgent = new DiseaseAgent();
         this.scanner = new Scanner(System.in);
-        this.ui = new UI(scanner, this);
+        this.ui = new UI(scanner, this, europe);
     }
 
     public void start() throws IOException {
