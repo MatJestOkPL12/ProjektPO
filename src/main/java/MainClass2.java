@@ -8,3 +8,4 @@ public class MainClass2 {
         game.start();
     }
 }
+chuj
