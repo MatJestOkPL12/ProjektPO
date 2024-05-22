@@ -9,6 +9,16 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Game {
+
+    public Game(){
+        this.europe = new Europe();
+        this.researchTeam = new ResearchTeam();
+        this.diseaseAgent = new DiseaseAgent();
+        this.scanner = new Scanner(System.in);
+        this.ui = new UI(scanner, this, europe, researchTeam);
+    }
+
+
     private Country[] countriesInMainArr = new Country[49];
     public static int day = 0;
     private Europe europe;
@@ -18,13 +28,6 @@ public class Game {
     private UI ui;
 
 
-    public Game(){
-        this.europe = new Europe();
-        this.researchTeam = new ResearchTeam();
-        this.diseaseAgent = new DiseaseAgent();
-        this.scanner = new Scanner(System.in);
-        this.ui = new UI(scanner, this, europe);
-    }
 
     public void start() throws IOException {
         while (europe.getGlobalHealthStatus() > 0 && researchTeam.getProgressInResearch() < 100) {

@@ -3,17 +3,19 @@ package Game;
 import Disease.Bacteria;
 import Disease.DiseaseAgent;
 import Disease.Virus;
+import ResearchTeam.ResearchTeam;
 import Word.Country;
 import Word.Europe;
 
 import java.util.Scanner;
 
-public class UI {
+public class UI { //Klasa odpowiedzialna za cały wygląd gry. Ekrany stratowe, menu itp itp
 
-    public UI(Scanner scanner, Game game, Europe europe){
+    public UI(Scanner scanner, Game game, Europe europe, ResearchTeam researchTeam){
         this.scanner = scanner;
         this.game = game;
         this.europe = europe;
+        this.researchTeam = researchTeam;
     }
 
     private int day = 0;
@@ -21,17 +23,20 @@ public class UI {
     private Game game;
     private  Scanner scanner;
 
+    private ResearchTeam researchTeam;
+
 
     public void showHomeScreen() {
         horizontalCentre();
         System.out.print("Welcome in the ITE-12.73 Game.");
+        //te wszystkie system.out.printy sa po to zeby wszystko wygladało ladniej, byly odstępy, równo itp
         System.out.println();
         System.out.println();
         System.out.println();
         horizontalCentre();
         System.out.println("Write \"start\" to Start the game");
         verticalCentre();
-    }
+    }//Metoda wyswietlana ekranu startowego
 
     public DiseaseAgent chooseDisease() {
         verticalCentre();
@@ -61,7 +66,7 @@ public class UI {
         } else {
             return new DiseaseAgent(); // Default case
         }
-    }
+    }//Metoda dajaca graczowi wybór czy wirus czy bakteria
 
     public void displayStartMessage(DiseaseAgent diseaseAgent) {
         clearConsole();
@@ -94,25 +99,26 @@ public class UI {
         scanner.nextLine();
         ;
 
-    }
+    } // Jakas tam wiadomosc poczatkowa, czym gracz gra itp
 
     private void verticalCentre() {
         for (int i = 0; i < 24; i++) {
             System.out.println();
         }
-    }
+    } // Wysrodkowanie pionowe
 
     private void horizontalCentre() {
         for (int i = 0; i < 80; i++) {
             System.out.print(" ");
         }
-    }
+    } // Wyśrodkowanie poziome
 
     private void horizontalCentre2() {
         for (int i = 0; i < 50; i++) {
             System.out.print(" ");
         }
-    }
+    } // Wyśrodkowanie poziome 2
+    // Te wypośrodkowania trzeba zmienic troche wsm żeby lepiej dzialaly pozniej to zrobie bo wlasnie wymyslilem jak
 
     public void clearConsole() {
         for (int i = 0; i < 30; i++) {
@@ -160,14 +166,14 @@ public class UI {
         System.out.println("Number of infection countries : " + infectionCountries);
         System.out.println("Number of not infection countries : " + notInfectionCountries);
         System.out.println("Global health status - " + europe.getGlobalHealthStatus() + "%");
-        System.out.println("Drug research progress - " + europe.getDrugResearchProgress()+"%");
+        System.out.println("Drug research progress - " + researchTeam.getProgressInResearch()+"%");
         infectionCountries = 0;
         notInfectionCountries = 0;
         System.out.println();
         System.out.println();
         System.out.println();
 
-    }
+    } // Pokazuje statystyki dotyczace calej europy, zarazone i niezarazone kraje, % badania leku i zarazonej europy
     public void showMenu(){
         horizontalCentre();
         System.out.print("Choose what you want to do");
@@ -189,12 +195,14 @@ public class UI {
 
         //Trzeba zrobic switch case do wyboru
 
-    }
+    } // Pokazuje manu graczowi i umozliwoa dokonania wyboru co chce dalej zribic
 
     public void NextDay(){
         day++;
         clearConsole();
         //Tu trzeba bedzie dodac metode ktora zaraża ludzi, modyfikuje sie jakos randomowo, i zwieksza/albo zmniejsza podstęp lekarstwa itd
         System.out.println("Welcome in Day " + day);
-    }
+    }//Jeszce nie dokonczona, ale po prostu przechodzenie do kolejnego dnia
+
+    // No i tu trzeba teraz dorobic metode ulepszenia i pokazywania statystyk choroby
 }

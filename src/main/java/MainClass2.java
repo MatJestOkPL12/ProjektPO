@@ -7,8 +7,5 @@ public class MainClass2 {
         Game game = new Game();
         game.start();
     }
-    //siema siema
-    public void czemutogownoniedziala(){
 
-    }
 }

@@ -4,6 +4,7 @@ public class MutationEvent  implements Iexecute, Event{
     private double mutationRate;
     private String type = "Mutation Events.Event";
 
+    //Tutaj tak samo jak w Klasie DrugDevelopmentEvent
     String [] mutationName = new String[]{"Air transmision", "Water Transmision", "Animal Transmision", "Pchysical Transmision", "Respiratory Symptoms"
             ,"Gastrointestinal Symptoms", "Genetic mutation", "Cough", "Fever", "Loss of taste", "Loss of smell"};
 
