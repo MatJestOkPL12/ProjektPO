@@ -1,7 +1,9 @@
 package Disease;
 
+import Word.Country;
+
 public interface Idiesease {
 
     public void mutate();
-    public void spread();
+    public void spread(Country [] countries);
 }

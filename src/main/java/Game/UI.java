@@ -11,11 +11,13 @@ import java.util.Scanner;
 
 public class UI { //Klasa odpowiedzialna za cały wygląd gry. Ekrany stratowe, menu itp itp
 
-    public UI(Scanner scanner, Game game, Europe europe, ResearchTeam researchTeam){
+    public UI(Scanner scanner, Game game, Europe europe, ResearchTeam researchTeam, DiseaseAgent diseaseAgent){
         this.scanner = scanner;
         this.game = game;
         this.europe = europe;
         this.researchTeam = researchTeam;
+        this.diseaseAgent = diseaseAgent;
+
     }
 
     private int day = 0;
@@ -24,6 +26,11 @@ public class UI { //Klasa odpowiedzialna za cały wygląd gry. Ekrany stratowe, 
     private  Scanner scanner;
 
     private ResearchTeam researchTeam;
+    private DiseaseAgent diseaseAgent;
+
+    public DiseaseAgent getDiseaseAgent(){
+        return diseaseAgent;
+    }
 
 
     public void showHomeScreen() {
@@ -38,7 +45,7 @@ public class UI { //Klasa odpowiedzialna za cały wygląd gry. Ekrany stratowe, 
         verticalCentre();
     }//Metoda wyswietlana ekranu startowego
 
-    public DiseaseAgent chooseDisease() {
+    public void chooseDisease() {
         verticalCentre();
         horizontalCentre();
         System.out.println("                     Choose your disease: ");
@@ -60,20 +67,26 @@ public class UI { //Klasa odpowiedzialna za cały wygląd gry. Ekrany stratowe, 
         int chooseOfDisease = scanner.nextInt();
         scanner.nextLine();
         if (chooseOfDisease == 1) {
-            return new Virus();
+            diseaseAgent = new Virus();
+
         } else if (chooseOfDisease == 2) {
-            return new Bacteria();
+            diseaseAgent = new Bacteria();
+
         } else {
-            return new DiseaseAgent(); // Default case
+            System.out.println("Wrong choice");
         }
     }//Metoda dajaca graczowi wybór czy wirus czy bakteria
 
-    public void displayStartMessage(DiseaseAgent diseaseAgent) {
+    public void displayStartMessage() {
         clearConsole();
         horizontalCentre();
         if (diseaseAgent instanceof Virus) {
+            diseaseAgent.changeIsVirus();
+            ((Virus) diseaseAgent).DrawPropertiesOfVirus();
             System.out.print("          You are playing as Virus");
         } else if (diseaseAgent instanceof Bacteria) {
+            diseaseAgent.changeIsBaceria();
+            ((Bacteria) diseaseAgent).DrawPropertiesOfBacteria();
             System.out.print("          You are playing as Bacteria");
         }
         System.out.println();
@@ -126,9 +139,10 @@ public class UI { //Klasa odpowiedzialna za cały wygląd gry. Ekrany stratowe, 
         }
     }
 
-    public void gameplay(){
+    public void gameplay(DiseaseAgent diseaseAgent){
 
         showGlobalStatistic();
+        game.DrawTheFirstInfectedCountry();
         showMenu();
 
     }
@@ -167,6 +181,11 @@ public class UI { //Klasa odpowiedzialna za cały wygląd gry. Ekrany stratowe, 
         System.out.println("Number of not infection countries : " + notInfectionCountries);
         System.out.println("Global health status - " + europe.getGlobalHealthStatus() + "%");
         System.out.println("Drug research progress - " + researchTeam.getProgressInResearch()+"%");
+        System.out.println("Number of infection people - " + europe.getNumberOfInfectionPeopleInEurope());
+        System.out.println("-------------------------------");
+        for(int i = 0; i<49; i++){
+
+        }
         infectionCountries = 0;
         notInfectionCountries = 0;
         System.out.println();
@@ -174,7 +193,8 @@ public class UI { //Klasa odpowiedzialna za cały wygląd gry. Ekrany stratowe, 
         System.out.println();
 
     } // Pokazuje statystyki dotyczace calej europy, zarazone i niezarazone kraje, % badania leku i zarazonej europy
-    public void showMenu(){
+    public void showMenu()
+    {  do {
         horizontalCentre();
         System.out.print("Choose what you want to do");
         System.out.println();
@@ -193,14 +213,25 @@ public class UI { //Klasa odpowiedzialna za cały wygląd gry. Ekrany stratowe, 
         int choice = scanner.nextInt();
         scanner.nextLine();
 
-        //Trzeba zrobic switch case do wyboru
+        switch (choice) {
+            case 1: {
+                nextDay();
+                showGlobalStatistic();
+                break;
+            }
+        }
+    }while (true);
 
     } // Pokazuje manu graczowi i umozliwoa dokonania wyboru co chce dalej zribic
 
-    public void NextDay(){
+    public void nextDay(){
         day++;
         clearConsole();
-        //Tu trzeba bedzie dodac metode ktora zaraża ludzi, modyfikuje sie jakos randomowo, i zwieksza/albo zmniejsza podstęp lekarstwa itd
+        if(day > 1) {
+            diseaseAgent.spread(game.getCountriesInMainArr());
+            game.TrySpreadNewCountry(game.getCountriesInMainArr());
+            europe.changeGlobalHealthStatus(game.getCountriesInMainArr());
+        }
         System.out.println("Welcome in Day " + day);
     }//Jeszce nie dokonczona, ale po prostu przechodzenie do kolejnego dnia
 

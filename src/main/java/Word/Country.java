@@ -14,6 +14,8 @@ public class Country {
     private boolean infectionStatus = false;
     private double sanitationCondition=100; // Okresla w jakim stanie jest kondycja szpitali i lekarzy w danym kraju - pomysl byl taki zeby tam im nizsza tym wolniej rósł postęp nad badaniami leku ale nie wiem czy to sie przuda wsm XD
 
+    private long infectionPeople = 0;
+
     public double UpdateHealthStatus(){
         return healthLevel;
     };
@@ -33,6 +35,20 @@ public class Country {
 
     public String getName(){
         return name;
+    }
+
+    public void setInfectionPeople(long infectionPeople){
+        this.infectionPeople = infectionPeople;
+    }
+    public long getInfectionPeople(){
+        return infectionPeople;
+    }
+    public long getPopulation(){
+        return population;
+    }
+
+    public void changeInfectionStatus(){
+        infectionStatus = true;
     }
 
 }

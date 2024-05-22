@@ -25,6 +25,8 @@ public class Europe {
 
     private double globalHealthStatus = 100; // % zdrowia całej europy - jesli spadnie do 0 gra sie konczy - Gracz wygrywa
 
+    private long numberOfInfectionPeopleInEurope = 0;
+
 
     private long numberOfPeoplesInEurope =860346749; //
 
@@ -49,5 +51,17 @@ public class Europe {
     }
     public String getClimates( int i ){
         return climates[i];
+    }
+    public long getNumberOfInfectionPeopleInEurope(){
+        return numberOfInfectionPeopleInEurope;
+    }
+
+
+    public void changeGlobalHealthStatus(Country [] countries){
+        for(int i = 0; i<49; i++){
+            numberOfInfectionPeopleInEurope += countries[i].getInfectionPeople();
+        }
+        double infectionRate = (double)(numberOfInfectionPeopleInEurope/numberOfPeoplesInEurope);
+        globalHealthStatus = 100-(infectionRate*100);
     }
 }
