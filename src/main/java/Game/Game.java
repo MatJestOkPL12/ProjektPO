@@ -1,6 +1,7 @@
 package Game;
 
 import Disease.DiseaseAgent;
+import Events.MutationEvent;
 import ResearchTeam.ResearchTeam;
 import Word.Country;
 import Word.Europe;
@@ -107,6 +108,20 @@ public class Game {
 
                 }
             }
+        }
+    private void triggerMutationEvent() {
+        MutationEvent mutationEvent = new MutationEvent();
+        mutationEvent.Execute();
+    }
+
+    public void runGameCycle() {
+        // Logic for each day or cycle of the game
+        day++;
+        System.out.println("Day: " + day);
+
+        // Trigger a mutation event periodically, e.g., every 5 days
+        if (day % 5 == 0) {
+            triggerMutationEvent();
         }
 
     } // Metoda w nowym dniu w sposob pseudolowywy wybiera Czy nowe państwo ma zostać zarażone i w sposób przeudolosowy wybiera Która ma zostać zarażone
