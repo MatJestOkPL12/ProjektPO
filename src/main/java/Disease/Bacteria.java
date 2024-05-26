@@ -1,14 +1,18 @@
 package Disease;
 
+import Events.MutationEvent;
 import Word.Country;
 
 import java.util.Random;
 
 public class Bacteria extends DiseaseAgent implements  Idiesease{
 
-   public Bacteria(){
-        isBacteria = true;
+   public Bacteria(MutationEvent mutationEvent){
+
+    isBacteria = true;
+    this.mutationEvent = mutationEvent;
     }
+    MutationEvent mutationEvent;
     private boolean toxigencity = false;
     private boolean survivalInHardCondition = false;
     private String [] ReproducingMethodArr = new String[]{"Cell division", "Transduction", "Transformation", "Conjugation"};
@@ -44,7 +48,7 @@ public class Bacteria extends DiseaseAgent implements  Idiesease{
 
  @Override
  public void mutate() {
-  int mutationIndex = new Random().nextInt(mutationBonus.length);
+  int mutationIndex = new Random().nextInt(mutationEvent.getMutationBonusArr().length);
   applyMutation(mutationIndex);
  }
 
@@ -69,15 +73,15 @@ public class Bacteria extends DiseaseAgent implements  Idiesease{
 
  @Override
  public void applyMutation(int mutationIndex) {
-  if (mutationIndex >= 0 && mutationIndex < mutationBonus.length) {
-   increaseRateOfSpread(mutationBonus[mutationIndex]);
+  if (mutationIndex >= 0 && mutationIndex < mutationEvent.getMutationNameArr().length) {
+   increaseRateOfSpread(mutationEvent.getMutationBonus(mutationIndex));
   }
  }
 
  @Override
  public void applyResistance(int resistanceIndex) {
-  if (resistanceIndex >= 0 && resistanceIndex < resistanceBonus.length) {
-   increaseDrugResistance(resistanceBonus[resistanceIndex]);
+  if (resistanceIndex >= 0 && resistanceIndex < mutationEvent.getResistanceBonusArr().length) {
+   increaseDrugResistance(mutationEvent.getResistanceBonus(resistanceIndex));
   }
  }
 }

@@ -58,10 +58,16 @@ public class Europe {
 
 
     public void changeGlobalHealthStatus(Country [] countries){
+        numberOfInfectionPeopleInEurope = 0;
         for(int i = 0; i<49; i++){
             numberOfInfectionPeopleInEurope += countries[i].getInfectionPeople();
         }
-        double infectionRate = (double)(numberOfInfectionPeopleInEurope/numberOfPeoplesInEurope);
-        globalHealthStatus = 100-(infectionRate*100);
+        double infectionRate = (double)numberOfInfectionPeopleInEurope/numberOfPeoplesInEurope;
+        globalHealthStatus = 100.00-(infectionRate*100.00);
+
+        if (globalHealthStatus < 0){
+            globalHealthStatus = 0;
+        }
+
     }
 }

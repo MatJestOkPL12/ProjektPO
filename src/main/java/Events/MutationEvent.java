@@ -25,6 +25,19 @@ public class MutationEvent implements Iexecute, Event {
             12.5, 6.7, 9.4, 5.5, 5.5, 7.8, 10.0
     };
 
+    public String [] getMutationNameArr(){
+        return mutationName;
+    }
+    public String []  getMutationResistanceNameArr(){return  mutationResistanceName;}
+    public String getMutationName(int i){return mutationName[i];}
+    public String getMutationResistanceName(int i){return  mutationResistanceName[i];}
+
+    public double [] getMutationBonusArr(){return mutationBonus;}
+    public double [] getResistanceBonusArr(){return resistanceBonus; }
+    public double getMutationBonus(int i){return  mutationBonus[i];}
+    public double getResistanceBonus(int i){return resistanceBonus[i];}
+
+
     public void applyMutation(DiseaseAgent agent, int mutationIndex) {
         if (mutationIndex >= 0 && mutationIndex < mutationBonus.length) {
             agent.increaseRateOfSpread(mutationBonus[mutationIndex]);
@@ -53,6 +66,21 @@ public class MutationEvent implements Iexecute, Event {
     }
 
     private DiseaseAgent getTargetDiseaseAgent() {
-        return new DiseaseAgent(); // Placeholder method, should be implemented to get the actual target DiseaseAgent
+        return new DiseaseAgent() {
+            @Override
+            public void mutate() {
+
+            }
+
+            @Override
+            public void applyMutation(int mutationIndex) {
+
+            }
+
+            @Override
+            public void applyResistance(int resistanceIndex) {
+
+            }
+        }; // Placeholder method, should be implemented to get the actual target DiseaseAgent
     }
 }

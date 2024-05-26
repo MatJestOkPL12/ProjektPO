@@ -3,6 +3,8 @@ package Game;
 import Disease.Bacteria;
 import Disease.DiseaseAgent;
 import Disease.Virus;
+import Events.EpidemicSpreadEvent;
+import Events.MutationEvent;
 import ResearchTeam.ResearchTeam;
 import Word.Country;
 import Word.Europe;
@@ -11,12 +13,15 @@ import java.util.Scanner;
 
 public class UI { //Klasa odpowiedzialna za cały wygląd gry. Ekrany stratowe, menu itp itp
 
-    public UI(Scanner scanner, Game game, Europe europe, ResearchTeam researchTeam, DiseaseAgent diseaseAgent){
+    public UI(Scanner scanner, Game game, Europe europe, ResearchTeam researchTeam, DiseaseAgent diseaseAgent, MutationEvent mutationEvent){
         this.scanner = scanner;
         this.game = game;
         this.europe = europe;
         this.researchTeam = researchTeam;
         this.diseaseAgent = diseaseAgent;
+        this.mutationEvent = mutationEvent;
+
+
 
     }
 
@@ -27,6 +32,7 @@ public class UI { //Klasa odpowiedzialna za cały wygląd gry. Ekrany stratowe, 
 
     private ResearchTeam researchTeam;
     private DiseaseAgent diseaseAgent;
+    private MutationEvent mutationEvent;
 
     public DiseaseAgent getDiseaseAgent(){
         return diseaseAgent;
@@ -67,10 +73,10 @@ public class UI { //Klasa odpowiedzialna za cały wygląd gry. Ekrany stratowe, 
         int chooseOfDisease = scanner.nextInt();
         scanner.nextLine();
         if (chooseOfDisease == 1) {
-            diseaseAgent = new Virus();
+            diseaseAgent = new Virus(mutationEvent);
 
         } else if (chooseOfDisease == 2) {
-            diseaseAgent = new Bacteria();
+            diseaseAgent = new Bacteria(mutationEvent);
 
         } else {
             System.out.println("Wrong choice");
@@ -140,7 +146,6 @@ public class UI { //Klasa odpowiedzialna za cały wygląd gry. Ekrany stratowe, 
     }
 
     public void gameplay(DiseaseAgent diseaseAgent){
-
         showGlobalStatistic();
         game.DrawTheFirstInfectedCountry();
         showMenu();
@@ -179,8 +184,8 @@ public class UI { //Klasa odpowiedzialna za cały wygląd gry. Ekrany stratowe, 
         System.out.println();
         System.out.println("Number of infection countries : " + infectionCountries);
         System.out.println("Number of not infection countries : " + notInfectionCountries);
-        System.out.println("Global health status - " + europe.getGlobalHealthStatus() + "%");
-        System.out.println("Drug research progress - " + researchTeam.getProgressInResearch()+"%");
+        System.out.println("Global health status - " + String.format("%.2f", europe.getGlobalHealthStatus()) + "%");
+        System.out.println("Drug research progress - " + String.format("%.2f", researchTeam.getProgressInResearch()) + "%");
         System.out.println("Number of infection people - " + europe.getNumberOfInfectionPeopleInEurope());
         System.out.println("-------------------------------");
         for(int i = 0; i<49; i++){
@@ -220,7 +225,7 @@ public class UI { //Klasa odpowiedzialna za cały wygląd gry. Ekrany stratowe, 
                 break;
             }
         }
-    }while (true);
+    }while (europe.getGlobalHealthStatus() != 0 && researchTeam.getProgressInResearch() != 100);
 
     } // Pokazuje manu graczowi i umozliwoa dokonania wyboru co chce dalej zribic
 
@@ -231,6 +236,7 @@ public class UI { //Klasa odpowiedzialna za cały wygląd gry. Ekrany stratowe, 
             diseaseAgent.spread(game.getCountriesInMainArr());
             game.TrySpreadNewCountry(game.getCountriesInMainArr());
             europe.changeGlobalHealthStatus(game.getCountriesInMainArr());
+            researchTeam.WorkOnDrug();
         }
         System.out.println("Welcome in Day " + day);
         if (day % 5 == 0) {

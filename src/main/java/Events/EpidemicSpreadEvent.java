@@ -3,6 +3,7 @@ package Events;
 import Disease.DiseaseAgent;
 
 public class EpidemicSpreadEvent  implements Iexecute, Event {
+    MutationEvent mutationEvent = new MutationEvent();
     private String affectedArea;
     private double affectedScale;
 
@@ -15,15 +16,15 @@ public class EpidemicSpreadEvent  implements Iexecute, Event {
 
     @Override
     public void Execute() {
-        int mutationIndex = (int) (Math.random() * mutationName.length);
-        int resistanceIndex = (int) (Math.random() * mutationResistanceName.length);
+        int mutationIndex = (int) (Math.random() * mutationEvent.getMutationNameArr().length);//mutationName.length);
+        int resistanceIndex = (int) (Math.random() * mutationEvent.getMutationResistanceNameArr().length);//mutationResistanceName.length);
 
         DiseaseAgent agent = getTargetDiseaseAgent();
         agent.applyMutation(mutationIndex);
         agent.applyResistance(resistanceIndex);
 
-        System.out.println("Mutation applied: " + mutationName[mutationIndex]);
-        System.out.println("Resistance applied: " + mutationResistanceName[resistanceIndex]);
+        System.out.println("Mutation applied: " + mutationEvent.getMutationName(mutationIndex));//mutationName[mutationIndex]);
+        System.out.println("Resistance applied: " + mutationEvent.getMutationResistanceName(resistanceIndex));//mutationResistanceName[resistanceIndex]);
     }
 
     private DiseaseAgent getTargetDiseaseAgent() {

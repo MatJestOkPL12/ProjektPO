@@ -3,6 +3,7 @@ package Game;
 import Disease.DiseaseAgent;
 import Disease.Virus;
 import Disease.Bacteria;
+import Events.EpidemicSpreadEvent;
 import ResearchTeam.ResearchTeam;
 import Word.Country;
 import Word.Europe;
@@ -14,26 +15,42 @@ import java.util.Scanner;
 public class Game {
 
     public Game(){
-        this.europe = new Europe();
-        this.researchTeam = new ResearchTeam();
-        this.diseaseAgent = new DiseaseAgent();
+
+        this.researchTeam = new ResearchTeam(europe);
+        this.diseaseAgent = new DiseaseAgent() {
+            @Override
+            public void mutate() {
+
+            }
+
+            @Override
+            public void applyMutation(int mutationIndex) {
+
+            }
+
+            @Override
+            public void applyResistance(int resistanceIndex) {
+
+            }
+        };
         this.scanner = new Scanner(System.in);
-        this.ui = new UI(scanner, this, europe, researchTeam, diseaseAgent);
+        this.ui = new UI(scanner, this, europe, researchTeam, diseaseAgent, mutationEvent );
     }
 
 
     private Country[] objectCountries = new Country[49];
     public static int day = 0;
-    private Europe europe;
+    private Europe europe = new Europe();
     private ResearchTeam researchTeam;
     private DiseaseAgent diseaseAgent;
     private Scanner scanner;
     private UI ui;
+    private MutationEvent mutationEvent;
 
 
 
     public void start() throws IOException {
-        while (europe.getGlobalHealthStatus() > 0 && researchTeam.getProgressInResearch() < 100) {
+        while (europe.getGlobalHealthStatus() != 0.0 && researchTeam.getProgressInResearch() != 100.0) {
             makeObjectOfEveryCountries();
             ui.clearConsole();
             ui.showHomeScreen();
