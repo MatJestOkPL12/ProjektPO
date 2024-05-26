@@ -10,6 +10,8 @@ public abstract class DiseaseAgent {
     protected double rateOfSpread;
     protected double drugResistance;
 
+
+
     public DiseaseAgent() {
         this.rateOfSpread = 0.0;
         this.drugResistance = 0.0;
@@ -64,4 +66,9 @@ public abstract class DiseaseAgent {
     public double getDrugResistance() {
         return drugResistance;
     }
+    public String getName(){
+        return name;
+    }
+
+
 }

@@ -22,13 +22,6 @@ public class Bacteria extends DiseaseAgent implements  Idiesease{
     private double reproducingSpeed;
 
 
-
-
- @Override
- public void przedstawsie() {
-  System.out.println("Jestem bakteria");
- }
-
  public void DrawPropertiesOfBacteria() {
   Random random = new Random();
   int reproducing = random.nextInt(5);
@@ -84,4 +77,9 @@ public class Bacteria extends DiseaseAgent implements  Idiesease{
    increaseDrugResistance(mutationEvent.getResistanceBonus(resistanceIndex));
   }
  }
+
+ public boolean getToxigencity(){return  toxigencity;}
+ public boolean getSurvivalInHardCondition(){return survivalInHardCondition;}
+ public String getReproducingMethod(){ return reproducingMethod;}
+ public double getReproducingSpeed(){return reproducingSpeed;}
 }

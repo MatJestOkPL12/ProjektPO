@@ -70,4 +70,8 @@ public class Virus extends DiseaseAgent implements Idiesease {
             increaseDrugResistance(mutationEvent.getResistanceBonus(resistanceIndex));
         }
     }
+
+    public double getReplicationSpeed(){return replicationSpeed;}
+    public String getTransmissionMode(){return transmissionMode;}
+    public double getEnvironmentalResistance(){return environmentalResistance;}
 }

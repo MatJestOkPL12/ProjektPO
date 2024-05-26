@@ -199,7 +199,9 @@ public class UI { //Klasa odpowiedzialna za cały wygląd gry. Ekrany stratowe, 
 
     } // Pokazuje statystyki dotyczace calej europy, zarazone i niezarazone kraje, % badania leku i zarazonej europy
     public void showMenu()
-    {  do {
+    {
+        int exit = 0;
+        do {
         horizontalCentre();
         System.out.print("Choose what you want to do");
         System.out.println();
@@ -207,7 +209,7 @@ public class UI { //Klasa odpowiedzialna za cały wygląd gry. Ekrany stratowe, 
         System.out.print("1 - Moving to next day");
         System.out.println();
         horizontalCentre();
-        System.out.print("2 - Upgrade your disease");
+        System.out.print("2 - Upgrade your disease - ta opcja jeszce nie jest dostępna");
         System.out.println();
         horizontalCentre();
         System.out.print("3 - Show your disease statistic");
@@ -224,8 +226,18 @@ public class UI { //Klasa odpowiedzialna za cały wygląd gry. Ekrany stratowe, 
                 showGlobalStatistic();
                 break;
             }
+            case 2:{
+                break;
+            }
+            case 3: {
+                showDiseaseStatistic(diseaseAgent);
+                break;
+            }
+            case 4:{
+                exit = -1;
+            }
         }
-    }while (europe.getGlobalHealthStatus() != 0 && researchTeam.getProgressInResearch() != 100);
+    }while (europe.getGlobalHealthStatus() != 0 && researchTeam.getProgressInResearch() != 100 && exit == 0);
 
     } // Pokazuje manu graczowi i umozliwoa dokonania wyboru co chce dalej zribic
 
@@ -243,6 +255,74 @@ public class UI { //Klasa odpowiedzialna za cały wygląd gry. Ekrany stratowe, 
             game.triggerMutationEvent();
         }
     }//Jeszce nie dokonczona, ale po prostu przechodzenie do kolejnego dnia
+
+    public void showDiseaseStatistic(DiseaseAgent diseaseAgent){
+        String type = "";
+        if(diseaseAgent instanceof Bacteria) {
+            clearConsole();
+            type = "Bacteria";
+            verticalCentre();
+            horizontalCentre();
+            System.out.print("Name - " + diseaseAgent.getName());
+            System.out.println();
+            horizontalCentre();
+            System.out.print("Type - " + type);
+            System.out.println();
+            horizontalCentre();
+            System.out.print("Drug resistance - " + diseaseAgent.getDrugResistance());
+            System.out.println();
+            horizontalCentre();
+            System.out.print("Reproducing method - " + ((Bacteria) diseaseAgent).getReproducingMethod());
+            System.out.println();
+            horizontalCentre();
+            System.out.print("Reproducing speed - " + ((Bacteria) diseaseAgent).getReproducingSpeed());
+            System.out.println();
+            horizontalCentre();
+            System.out.print("Is toxigencity - " + ((Bacteria) diseaseAgent).getToxigencity());
+            System.out.println();
+            horizontalCentre();
+            System.out.print("Is survival in hard condition - " + ((Bacteria) diseaseAgent).getSurvivalInHardCondition());
+            verticalCentre();
+
+
+
+            scanner.nextLine();
+
+
+        }
+        if(diseaseAgent instanceof Virus){
+            clearConsole();
+            type = "Virus";
+            verticalCentre();
+            horizontalCentre();
+            System.out.print("Name - " + diseaseAgent.getName());
+            System.out.println();
+            horizontalCentre();
+            System.out.print("Type - " + type);
+            System.out.println();
+            horizontalCentre();
+            System.out.print("Drug resistance - " + diseaseAgent.getDrugResistance());
+            System.out.println();
+            horizontalCentre();
+            System.out.print("Transmission mode - " + ((Virus) diseaseAgent).getTransmissionMode());
+            System.out.println();
+            horizontalCentre();
+            System.out.print("Replication speed - " + ((Virus) diseaseAgent).getReplicationSpeed());
+            System.out.println();
+            horizontalCentre();
+            System.out.print("Environmental resistance  - " + String.format("%.2f" , ((Virus) diseaseAgent).getEnvironmentalResistance()));
+            System.out.println();
+            horizontalCentre();
+            verticalCentre();
+
+            scanner.nextLine();
+
+        }
+
+
+
+
+    }
 
     // No i tu trzeba teraz dorobic metode ulepszenia i pokazywania statystyk choroby
 }
