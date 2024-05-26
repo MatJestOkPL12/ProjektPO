@@ -12,21 +12,38 @@ public class Virus extends DiseaseAgent implements Idiesease {
     private String TransmissionMode;
     private double environmentalResistance;
 
-    public void DrawPropertiesOfVirus(){
+    public Virus() {
+        this.isVirus = true;
+    }
+
+    public void DrawPropertiesOfVirus() {
         Random random = new Random();
         int randomNumberToChoiceOfArrays = random.nextInt(5);
-        environmentalResistance = random.nextDouble()*10;
-
+        environmentalResistance = random.nextDouble() * 10;
     }
 
     @Override
     public void mutate() {
-
+        int mutationIndex = new Random().nextInt(mutationBonus.length);
+        applyMutation(mutationIndex);
     }
 
     @Override
-    public void spread(Country [] countries) {
+    public void spread(Country[] countries) {
+        // Implement spreading logic specific to Virus
+    }
 
+    @Override
+    public void applyMutation(int mutationIndex) {
+        if (mutationIndex >= 0 && mutationIndex < mutationBonus.length) {
+            increaseRateOfSpread(mutationBonus[mutationIndex]);
+        }
+    }
 
+    @Override
+    public void applyResistance(int resistanceIndex) {
+        if (resistanceIndex >= 0 && resistanceIndex < resistanceBonus.length) {
+            increaseDrugResistance(resistanceBonus[resistanceIndex]);
+        }
     }
 }

@@ -233,6 +233,9 @@ public class UI { //Klasa odpowiedzialna za cały wygląd gry. Ekrany stratowe, 
             europe.changeGlobalHealthStatus(game.getCountriesInMainArr());
         }
         System.out.println("Welcome in Day " + day);
+        if (day % 5 == 0) {
+            game.triggerMutationEvent();
+        }
     }//Jeszce nie dokonczona, ale po prostu przechodzenie do kolejnego dnia
 
     // No i tu trzeba teraz dorobic metode ulepszenia i pokazywania statystyk choroby
