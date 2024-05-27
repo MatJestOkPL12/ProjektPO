@@ -118,7 +118,7 @@ public class UI { //Klasa odpowiedzialna za cały wygląd gry. Ekrany stratowe, 
         scanner.nextLine();
         ;
 
-    } // Jakas tam wiadomosc poczatkowa, czym gracz gra itp
+    } // Metoda wyswietlająca początkowe  informacje - czym gracz gra itp
 
     private void verticalCentre() {
         for (int i = 0; i < 24; i++) {
@@ -143,14 +143,14 @@ public class UI { //Klasa odpowiedzialna za cały wygląd gry. Ekrany stratowe, 
         for (int i = 0; i < 30; i++) {
             System.out.println();
         }
-    }
+    } // Czyśli terminal
 
     public void gameplay(DiseaseAgent diseaseAgent){
         showGlobalStatistic();
         game.DrawTheFirstInfectedCountry();
         showMenu();
 
-    }
+    } // Metoda odpowiedzialna za rozgrywke
 
     public void showGlobalStatistic(){
         int infectionCountries = 0;
@@ -322,7 +322,7 @@ public class UI { //Klasa odpowiedzialna za cały wygląd gry. Ekrany stratowe, 
 
 
 
-    }
+    } // Metoda pokazuje statystyki choroby
 
-    // No i tu trzeba teraz dorobic metode ulepszenia i pokazywania statystyk choroby
+
 }

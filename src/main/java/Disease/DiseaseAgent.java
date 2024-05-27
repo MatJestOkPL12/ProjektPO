@@ -24,7 +24,7 @@ public abstract class DiseaseAgent {
     public abstract void applyResistance(int resistanceIndex);
 
     public void spread(Country[] countries) {
-        System.out.println("tak");
+
     }
 
     public void changeIsVirus(){
@@ -43,10 +43,6 @@ public abstract class DiseaseAgent {
         else {
             isBacteria = true;
         }
-    }
-
-    public void przedstawsie() {
-        System.out.println("jestem choroba");
     }
 
     public void increaseRateOfSpread(double bonus) {

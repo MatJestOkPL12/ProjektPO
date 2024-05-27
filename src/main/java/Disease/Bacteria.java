@@ -15,16 +15,18 @@ public class Bacteria extends DiseaseAgent implements  Idiesease{
     MutationEvent mutationEvent;
     private boolean toxigencity = false;
     private boolean survivalInHardCondition = false;
+    // Ponizej tablice okreslające sposób i szybkosc rozmnazania sie bakteri. Są one umieszczone na odpowiednio swoich miejscach.
+    // Jesli Transformation znajduje się w tablicy pod indeksem 2 to jego szybkosc jest w drugiej tablicy pod indeksem 2
     private String [] ReproducingMethodArr = new String[]{"Cell division", "Transduction", "Transformation", "Conjugation"};
     private double [] ReproducingSpeedArr = new double[]{9.9, 8.2, 7.1, 3.1};
 
     private String reproducingMethod;
     private double reproducingSpeed;
 
-
+//Metoda losuje właściwości bakterii
  public void DrawPropertiesOfBacteria() {
   Random random = new Random();
-  int reproducing = random.nextInt(5);
+  int reproducing = random.nextInt(4);
   int TrueOfFalse = random.nextInt(11);
   reproducingMethod = ReproducingMethodArr[reproducing];
   reproducingSpeed = ReproducingSpeedArr[reproducing];
@@ -45,6 +47,7 @@ public class Bacteria extends DiseaseAgent implements  Idiesease{
   applyMutation(mutationIndex);
  }
 
+ //Metoda odopwiedzialna za zarażanie osob
  @Override
  public void spread(Country[] countries) {
   for (int i = 0; i < 49; i++) {
@@ -78,6 +81,7 @@ public class Bacteria extends DiseaseAgent implements  Idiesease{
   }
  }
 
+ //Gettery pól
  public boolean getToxigencity(){return  toxigencity;}
  public boolean getSurvivalInHardCondition(){return survivalInHardCondition;}
  public String getReproducingMethod(){ return reproducingMethod;}

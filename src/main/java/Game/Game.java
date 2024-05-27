@@ -38,7 +38,7 @@ public class Game {
     }
 
 
-    private Country[] objectCountries = new Country[49];
+    private Country[] objectCountries = new Country[49];// Tablica zawierajaca obiekty klasy Country
     public static int day = 0;
     private Europe europe = new Europe();
     private ResearchTeam researchTeam;
@@ -48,7 +48,7 @@ public class Game {
     private MutationEvent mutationEvent;
 
 
-
+    //Metoda startująca rozgrywke
     public void start() throws IOException {
         while (europe.getGlobalHealthStatus() != 0.0 && researchTeam.getProgressInResearch() != 100.0) {
             makeObjectOfEveryCountries();
@@ -59,7 +59,6 @@ public class Game {
             if (password.equals("start")) {
                 ui.chooseDisease();
                 diseaseAgent = ui.getDiseaseAgent();
-                diseaseAgent.przedstawsie();
                 ui.displayStartMessage();
                 ui.gameplay(diseaseAgent);
                 scanner.next(); // To pause the game
@@ -70,6 +69,7 @@ public class Game {
         }
     }
 
+    //Metoda tworząca obiekty wszystkich krajów w tablicy
     private void makeObjectOfEveryCountries() {
         for (int i = 0; i < 49; i++) {
             Country country = new Country(europe.getCountries(i), europe.getPopulation(i), europe.getClimates(i));
@@ -77,10 +77,8 @@ public class Game {
         }
     }
 
-    public Country[] getCountriesInMainArr(){
-        return objectCountries;
-    }
 
+    //Metoda losujaca i zarazajaca pierwszą osobe w losoym kraju w Europie
     public void DrawTheFirstInfectedCountry(){
         Random random = new Random();
         int radnomNumber = random.nextInt(50);
@@ -90,7 +88,7 @@ public class Game {
 
     public void TrySpreadNewCountry(Country [] countries){
         int numberOfInfectionCountries = 0;
-        for(int  i = 0; i<49; i++) {
+        for(int  i = 0; i<49; i++) {//Zlicza wszystkie zarazone kraje
             if (countries[i].getInfectionStatus()) {
                 numberOfInfectionCountries++;
             }
@@ -126,12 +124,14 @@ public class Game {
 
                 }
             }
-        }
+        } // Metoda odpowiadajaca za zarazanie nowych kraji
     void triggerMutationEvent() {
         MutationEvent mutationEvent = new MutationEvent();
         mutationEvent.Execute();
     }
-
+    public Country[] getCountriesInMainArr(){
+        return objectCountries;
+    }
 
     } // Metoda w nowym dniu w sposob pseudolowywy wybiera Czy nowe państwo ma zostać zarażone i w sposób przeudolosowy wybiera Która ma zostać zarażone
 
