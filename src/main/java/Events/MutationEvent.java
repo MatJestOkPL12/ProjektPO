@@ -81,10 +81,12 @@ public class MutationEvent implements Iexecute, Event {
         applyMutation(agent, mutationIndex);
         applyResistance(agent, resistanceIndex);
 
-        System.out.println("Mutation applied: " + mutationName[mutationIndex] +
+        System.out.println("-------------------------------------------------------");
+        System.out.println("|Mutation applied: " + mutationName[mutationIndex] +
                 " with bonus: " + mutationBonus[mutationIndex]);
-        System.out.println("Resistance applied: " + mutationResistanceName[resistanceIndex] +
+        System.out.println("|Resistance applied: " + mutationResistanceName[resistanceIndex] +
                 " with bonus: " + resistanceBonus[resistanceIndex]);
+        System.out.println("-------------------------------------------------------");
     }
 
     private DiseaseAgent getTargetDiseaseAgent() {

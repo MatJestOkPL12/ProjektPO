@@ -215,7 +215,7 @@ public class UI { //Klasa odpowiedzialna za cały wygląd gry. Ekrany stratowe, 
         System.out.print("1 - Moving to next day");
         System.out.println();
         horizontalCentre();
-        System.out.print("2 - Upgrade your disease - ta opcja jeszce nie jest dostępna");
+        System.out.print("2 - Upgrade your disease [Cost: 100 points]");
         System.out.println();
         horizontalCentre();
         System.out.print("3 - Show your disease statistic");
@@ -233,7 +233,13 @@ public class UI { //Klasa odpowiedzialna za cały wygląd gry. Ekrany stratowe, 
                 break;
             }
             case 2:{
-                game.triggerMutationEvent();;
+                if (points >= 100){
+                    points = points - 100;
+                    game.triggerMutationEvent();
+
+                }else{
+                    System.out.println("You have not enough money to upgrade!");
+                }
                 break;
             }
             case 3: {

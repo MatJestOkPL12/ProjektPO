@@ -17,9 +17,10 @@ public class DrugDevelopmentEvent implements Iexecute, Event {
         int developmentIndex = (int) (Math.random() * developmentEventNameArr().length);
 
         progressInResearch = progressInResearch + getdevelopmentBonus(developmentIndex);
-
-        System.out.println("Research Team: " + getdevelopmentName(developmentIndex));
-        System.out.println("Research Team: Progress in developing drug +" + getdevelopmentBonus(developmentIndex) + "%");
+        System.out.println("-------------------------------------------------------");
+        System.out.println("|Research Team: " + getdevelopmentName(developmentIndex));
+        System.out.println("|Research Team: Progress in developing drug +" + getdevelopmentBonus(developmentIndex) + "%");
+        System.out.println("-------------------------------------------------------");
     }
 
     public String[] developmentEventNameArr() {
