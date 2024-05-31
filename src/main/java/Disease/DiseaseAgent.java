@@ -45,7 +45,7 @@ public abstract class DiseaseAgent {
         }
     }
 
-    public static void increaseRateOfSpread(double bonus) {
+    public void increaseRateOfSpread(double bonus) {
         this.rateOfSpread += bonus;
         System.out.println("Rate of spread increased by: " + bonus);
     }

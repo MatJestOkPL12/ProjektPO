@@ -275,6 +275,10 @@ public class UI { //Klasa odpowiedzialna za cały wygląd gry. Ekrany stratowe, 
             DrugDevelopmentEvent developmentevent = new DrugDevelopmentEvent();
             developmentevent.Execute();
         }
+        if (day % (random.nextInt(10) + 5) == 0)  {
+            EpidemicSpreadEvent spreadevent = new EpidemicSpreadEvent();
+            spreadevent.Execute();
+        }
     }//Jeszce nie dokonczona, ale po prostu przechodzenie do kolejnego dnia
 
     public void showDiseaseStatistic(DiseaseAgent diseaseAgent) {

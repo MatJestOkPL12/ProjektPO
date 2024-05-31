@@ -21,8 +21,23 @@ public class EpidemicSpreadEvent  implements Iexecute, Event {
     public void Execute() {
         try{
             int SpreadIndex = (int) (Math.random() * getSpreadEventNameArr().length);
+            DiseaseAgent agent = new DiseaseAgent() {
+                @Override
+                public void mutate() {
 
-            Disease.DiseaseAgent.increaseRateOfSpread(getSpreadBonus(SpreadIndex));
+                }
+
+                @Override
+                public void applyMutation(int mutationIndex) {
+                    increaseRateOfSpread(getSpreadBonus(SpreadIndex));
+                }
+
+                @Override
+                public void applyResistance(int resistanceIndex) {
+
+                }
+            };
+
 
             System.out.println("-------------------------------------------------------");
             System.out.println("|World News: People were infected on the " + getSpreadEventName(SpreadIndex));
