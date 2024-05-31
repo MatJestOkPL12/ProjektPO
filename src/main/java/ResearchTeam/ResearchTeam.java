@@ -10,7 +10,7 @@ public class ResearchTeam {
     }
     private Europe europe;
     private double efficiency = 100; // Efektywnosc zespołu, im wyższa tym szybciej idą badania
-    private double progressInResearch = 0; // Progress w badaniach - jesli wyniesie 100 gra sie konczy
+    public static double progressInResearch = 0; // Progress w badaniach - jesli wyniesie 100 gra sie konczy
     private double resources = 80; // Zasoby - mogą przyspieszyc badania nad chorobą
     int i = 0; //Zmienna zrobiona po to zeby po przekrocznieu 100 000 chorych zacząc badanie nad lekarstwem i ustawic progres in reasech jednorazowo na 0,01 ;)
     public void WorkOnDrug(){

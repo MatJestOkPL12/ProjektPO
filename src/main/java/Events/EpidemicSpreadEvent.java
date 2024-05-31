@@ -1,5 +1,6 @@
 package Events;
 
+
 import Disease.DiseaseAgent;
 
 public class EpidemicSpreadEvent  implements Iexecute, Event {

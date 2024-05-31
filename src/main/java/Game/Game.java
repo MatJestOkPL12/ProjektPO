@@ -1,5 +1,5 @@
 package Game;
-
+import java.util.Random;
 import Disease.DiseaseAgent;
 import Disease.Virus;
 import Disease.Bacteria;
@@ -125,10 +125,24 @@ public class Game {
                 }
             }
         } // Metoda odpowiadajaca za zarazanie nowych kraji
+
+
+
     void triggerMutationEvent() {
         MutationEvent mutationEvent = new MutationEvent();
         mutationEvent.Execute();
     }
+    public void getPoints(){
+        Random random = new Random();
+        if(europe.getNumberOfInfectionPeopleInEurope() < 10000000){
+            points = points + random.nextInt(50) + 10;;
+        }else{
+            points = points + random.nextInt(100) + 10;;
+        }
+    }
+    public static int points = 0;
+
+
     public Country[] getCountriesInMainArr(){
         return objectCountries;
     }

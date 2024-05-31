@@ -5,11 +5,14 @@ import Disease.DiseaseAgent;
 import Disease.Virus;
 import Events.EpidemicSpreadEvent;
 import Events.MutationEvent;
+import Events.DrugDevelopmentEvent;
 import ResearchTeam.ResearchTeam;
 import Word.Country;
 import Word.Europe;
 
 import java.util.Scanner;
+
+import static Game.Game.points;
 
 public class UI { //Klasa odpowiedzialna za cały wygląd gry. Ekrany stratowe, menu itp itp
 
@@ -203,6 +206,9 @@ public class UI { //Klasa odpowiedzialna za cały wygląd gry. Ekrany stratowe, 
         int exit = 0;
         do {
         horizontalCentre();
+        System.out.print("Points: " + points);
+        System.out.println();
+        horizontalCentre();
         System.out.print("Choose what you want to do");
         System.out.println();
         horizontalCentre();
@@ -227,6 +233,7 @@ public class UI { //Klasa odpowiedzialna za cały wygląd gry. Ekrany stratowe, 
                 break;
             }
             case 2:{
+                game.triggerMutationEvent();;
                 break;
             }
             case 3: {
@@ -241,6 +248,8 @@ public class UI { //Klasa odpowiedzialna za cały wygląd gry. Ekrany stratowe, 
 
     } // Pokazuje manu graczowi i umozliwoa dokonania wyboru co chce dalej zribic
 
+
+
     public void nextDay(){
         day++;
         clearConsole();
@@ -251,14 +260,18 @@ public class UI { //Klasa odpowiedzialna za cały wygląd gry. Ekrany stratowe, 
             researchTeam.WorkOnDrug();
         }
         System.out.println("Welcome in Day " + day);
-        if (day % 5 == 0) {
-            game.triggerMutationEvent();
+        if (day % 2 == 0) {
+            game.getPoints();
+        }
+        if (day % 10 == 0)  {
+            DrugDevelopmentEvent developmentevent = new DrugDevelopmentEvent();
+            developmentevent.Execute();
         }
     }//Jeszce nie dokonczona, ale po prostu przechodzenie do kolejnego dnia
 
-    public void showDiseaseStatistic(DiseaseAgent diseaseAgent){
+    public void showDiseaseStatistic(DiseaseAgent diseaseAgent) {
         String type = "";
-        if(diseaseAgent instanceof Bacteria) {
+        if (diseaseAgent instanceof Bacteria) {
             clearConsole();
             type = "Bacteria";
             verticalCentre();
@@ -285,12 +298,11 @@ public class UI { //Klasa odpowiedzialna za cały wygląd gry. Ekrany stratowe, 
             verticalCentre();
 
 
-
             scanner.nextLine();
 
 
         }
-        if(diseaseAgent instanceof Virus){
+        if (diseaseAgent instanceof Virus) {
             clearConsole();
             type = "Virus";
             verticalCentre();
@@ -310,7 +322,7 @@ public class UI { //Klasa odpowiedzialna za cały wygląd gry. Ekrany stratowe, 
             System.out.print("Replication speed - " + ((Virus) diseaseAgent).getReplicationSpeed());
             System.out.println();
             horizontalCentre();
-            System.out.print("Environmental resistance  - " + String.format("%.2f" , ((Virus) diseaseAgent).getEnvironmentalResistance()));
+            System.out.print("Environmental resistance  - " + String.format("%.2f", ((Virus) diseaseAgent).getEnvironmentalResistance()));
             System.out.println();
             horizontalCentre();
             verticalCentre();
@@ -318,11 +330,15 @@ public class UI { //Klasa odpowiedzialna za cały wygląd gry. Ekrany stratowe, 
             scanner.nextLine();
 
         }
+    }// Metoda pokazuje statystyki choroby
 
 
 
 
-    } // Metoda pokazuje statystyki choroby
+
 
 
 }
+
+
+

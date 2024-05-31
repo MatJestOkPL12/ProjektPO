@@ -1,41 +1,39 @@
 package Disease;
 
-import Events.EpidemicSpreadEvent;
 import Events.MutationEvent;
 import Word.Country;
 
 import java.util.Random;
 
 public class Virus extends DiseaseAgent implements Idiesease {
-
-    //Tablica tak jak w przypadku bakteri okreslajaca metode i szybkosc rozprzestrzeniania sie virusa
-    //Szybkosc i nzawa na odpowiennich indeksach opdowiadaja sobie
-    private String [] transmissionModeArr = new String[]{"Droplet transmission", "Direct contact", "Indirect contact", "Vector-borne transmission", "BloodBorne transmission"};
-    private double [] replicationSpeedArr = new double[]{12.1, 10.1, 9.3, 8.1, 7.0};
+    private String[] transmissionModeArr = new String[]{
+            "Droplet transmission", "Direct contact", "Indirect contact", "Vector-borne transmission", "BloodBorne transmission"
+    };
+    private double[] replicationSpeedArr = new double[]{
+            12.1, 10.1, 9.3, 8.1, 7.0
+    };
     private double replicationSpeed;
     private String transmissionMode;
     private double environmentalResistance;
 
-    MutationEvent mutationEvent;
+    private MutationEvent mutationEvent;
 
     public Virus(MutationEvent mutationEvent) {
         this.isVirus = true;
         this.mutationEvent = mutationEvent;
     }
 
-    //Losowanie wlasciwosc virusa
     public void DrawPropertiesOfVirus() {
         Random random = new Random();
         int randomNumberToChoiceOfArrays = random.nextInt(5);
         environmentalResistance = random.nextDouble() * 10;
         replicationSpeed = replicationSpeedArr[randomNumberToChoiceOfArrays];
         transmissionMode = transmissionModeArr[randomNumberToChoiceOfArrays];
-
     }
 
     @Override
     public void mutate() {
-        int mutationIndex = new Random().nextInt(mutationEvent.getMutationBonusArr().length); //mutationBonus.length
+        int mutationIndex = new Random().nextInt(mutationEvent.getMutationBonusArr().length);
         applyMutation(mutationIndex);
     }
 
@@ -62,10 +60,10 @@ public class Virus extends DiseaseAgent implements Idiesease {
 
     @Override
     public void applyMutation(int mutationIndex) {
-        if (mutationIndex >= 0 && mutationIndex < mutationEvent.getMutationNameArr().length)//mutationBonus.length) {
+        if (mutationIndex >= 0 && mutationIndex < mutationEvent.getMutationNameArr().length) {
             increaseRateOfSpread(mutationEvent.getMutationBonus(mutationIndex));
         }
-
+    }
 
     @Override
     public void applyResistance(int resistanceIndex) {
@@ -73,6 +71,7 @@ public class Virus extends DiseaseAgent implements Idiesease {
             increaseDrugResistance(mutationEvent.getResistanceBonus(resistanceIndex));
         }
     }
+
 
     //Gettery pól
     public double getReplicationSpeed(){return replicationSpeed;}
