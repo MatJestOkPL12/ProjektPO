@@ -10,6 +10,7 @@ import ResearchTeam.ResearchTeam;
 import Word.Country;
 import Word.Europe;
 
+import java.util.Random;
 import java.util.Scanner;
 
 import static Game.Game.points;
@@ -259,6 +260,7 @@ public class UI { //Klasa odpowiedzialna za cały wygląd gry. Ekrany stratowe, 
     public void nextDay(){
         day++;
         clearConsole();
+        Random random = new Random();
         if(day > 1) {
             diseaseAgent.spread(game.getCountriesInMainArr());
             game.TrySpreadNewCountry(game.getCountriesInMainArr());
@@ -266,10 +268,10 @@ public class UI { //Klasa odpowiedzialna za cały wygląd gry. Ekrany stratowe, 
             researchTeam.WorkOnDrug();
         }
         System.out.println("Welcome in Day " + day);
-        if (day % 2 == 0) {
+        if (day % (random.nextInt(3) + 1) == 0) {
             game.getPoints();
         }
-        if (day % 10 == 0)  {
+        if (day % (random.nextInt(20) + 5) == 0)  {
             DrugDevelopmentEvent developmentevent = new DrugDevelopmentEvent();
             developmentevent.Execute();
         }

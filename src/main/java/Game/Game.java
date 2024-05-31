@@ -135,9 +135,9 @@ public class Game {
     public void getPoints(){
         Random random = new Random();
         if(europe.getNumberOfInfectionPeopleInEurope() < 10000000){
-            points = points + random.nextInt(50) + 10;;
+            points = points + random.nextInt(50) + 10;
         }else{
-            points = points + random.nextInt(100) + 10;;
+            points = points + random.nextInt(100) + 10;
         }
     }
     public static int points = 0;

@@ -5,46 +5,54 @@ import Disease.DiseaseAgent;
 
 public class EpidemicSpreadEvent  implements Iexecute, Event {
     MutationEvent mutationEvent = new MutationEvent();
+
     private String affectedArea;
     private double affectedScale;
 
     //Tutaj tak samo jak w Klasie DrugDevelopmentEvent
-    String [] spreadEventName = new String[]{"Musical even", "National holiday", "Hot week", "End of the school year", "Influencer event", "National protest", "Important political event"};
+    String [] SpreadEventName = new String[]{"Musical even", "National holiday", "Hot week", "End of the school year", "Influencer event", "National protest", "Important political event"};
 
-    double [] spreadBonus = new double[] {13.2, 9.9, 5.3, 7.4, 12.4, 10, 11.4, 8.2};
+    double [] SpreadBonus = new double[] {13.2, 9.9, 5.3, 7.4, 12.4, 10, 11.4, 8.2};
 
 
 
     @Override
+
     public void Execute() {
-        int mutationIndex = (int) (Math.random() * mutationEvent.getMutationNameArr().length);//mutationName.length);
-        int resistanceIndex = (int) (Math.random() * mutationEvent.getMutationResistanceNameArr().length);//mutationResistanceName.length);
+        try{
+            int SpreadIndex = (int) (Math.random() * getSpreadEventNameArr().length);
 
-        DiseaseAgent agent = getTargetDiseaseAgent();
-        agent.applyMutation(mutationIndex);
-        agent.applyResistance(resistanceIndex);
+            Disease.DiseaseAgent.increaseRateOfSpread(getSpreadBonus(SpreadIndex));
 
-        System.out.println("Mutation applied: " + mutationEvent.getMutationName(mutationIndex));//mutationName[mutationIndex]);
-        System.out.println("Resistance applied: " + mutationEvent.getMutationResistanceName(resistanceIndex));//mutationResistanceName[resistanceIndex]);
+            System.out.println("-------------------------------------------------------");
+            System.out.println("|World News: People were infected on the " + getSpreadEventName(SpreadIndex));
+            System.out.println("|World News: It caused the disease to spread faster +" + getSpreadBonus(SpreadIndex) + "%");
+            System.out.println("-------------------------------------------------------");
+        } catch (Exception e) {
+            System.err.println("An error occurred during execution: " + e.getMessage());
+            e.printStackTrace();
+        }
+
     }
 
-    private DiseaseAgent getTargetDiseaseAgent() {
-        //
-        return new DiseaseAgent() {
-            @Override
-            public void mutate() {
 
-            }
 
-            @Override
-            public void applyMutation(int mutationIndex) {
-                //
-            }
 
-            @Override
-            public void applyResistance(int resistanceIndex) {
-                //
-            }
-        };
+    public String[] getSpreadEventNameArr() {
+        return SpreadEventName;
+    }
+
+
+    public String getSpreadEventName(int i) {
+        return SpreadEventName[i];
+    }
+
+    public double[] SpreadBonusArr() {
+        return SpreadBonus;
+    }
+
+
+    public double getSpreadBonus(int i) {
+        return SpreadBonus[i];
     }
 }

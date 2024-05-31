@@ -14,13 +14,19 @@ public class DrugDevelopmentEvent implements Iexecute, Event {
 
     @Override
     public void Execute() {
-        int developmentIndex = (int) (Math.random() * developmentEventNameArr().length);
+        try{
+            int developmentIndex = (int) (Math.random() * developmentEventNameArr().length);
 
-        progressInResearch = progressInResearch + getdevelopmentBonus(developmentIndex);
-        System.out.println("-------------------------------------------------------");
-        System.out.println("|Research Team: " + getdevelopmentName(developmentIndex));
-        System.out.println("|Research Team: Progress in developing drug +" + getdevelopmentBonus(developmentIndex) + "%");
-        System.out.println("-------------------------------------------------------");
+            progressInResearch = progressInResearch + getdevelopmentBonus(developmentIndex);
+            System.out.println("-------------------------------------------------------");
+            System.out.println("|Research Team: " + getdevelopmentName(developmentIndex));
+            System.out.println("|Research Team: Progress in developing drug +" + getdevelopmentBonus(developmentIndex) + "%");
+            System.out.println("-------------------------------------------------------");
+        } catch (Exception e) {
+            System.err.println("An error occurred during execution: " + e.getMessage());
+            e.printStackTrace();
+
+        }
     }
 
     public String[] developmentEventNameArr() {
