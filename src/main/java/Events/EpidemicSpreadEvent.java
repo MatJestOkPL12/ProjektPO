@@ -2,9 +2,14 @@ package Events;
 
 
 import Disease.DiseaseAgent;
+import Game.UI;
+
+import java.util.Scanner;
 
 public class EpidemicSpreadEvent  implements Iexecute, Event {
     MutationEvent mutationEvent = new MutationEvent();
+    UI ui = new UI();
+    Scanner scanner = new Scanner(System.in);
 
     private String affectedArea;
     private double affectedScale;
@@ -18,31 +23,26 @@ public class EpidemicSpreadEvent  implements Iexecute, Event {
 
     @Override
 
-    public void Execute() {
+    public void Execute(DiseaseAgent diseaseAgent) {
         try{
             int SpreadIndex = (int) (Math.random() * getSpreadEventNameArr().length);
-            DiseaseAgent agent = new DiseaseAgent() {
-                @Override
-                public void mutate() {
+            ui.horizontal(65);
+            System.out.print("!!!WARNING!!!WARNING!!!WARNING!!!");
+            System.out.println();
+            ui.horizontal(65);
+            System.out.print("-------------------------------------------------------");
+            System.out.println();
+            ui.horizontal(65);
+            System.out.print("|World News: People were infected on the " + getSpreadEventName(SpreadIndex));
+            System.out.println();
+            ui.horizontal(65);
+            System.out.print("|World News: It caused the disease to spread faster +" + getSpreadBonus(SpreadIndex) + "%");
+            System.out.println();
+            ui.horizontal(65);
+            System.out.print("-------------------------------------------------------");
+            ui.vertical(14);
+            scanner.nextLine();
 
-                }
-
-                @Override
-                public void applyMutation(int mutationIndex) {
-                    increaseRateOfSpread(getSpreadBonus(SpreadIndex));
-                }
-
-                @Override
-                public void applyResistance(int resistanceIndex) {
-
-                }
-            };
-
-
-            System.out.println("-------------------------------------------------------");
-            System.out.println("|World News: People were infected on the " + getSpreadEventName(SpreadIndex));
-            System.out.println("|World News: It caused the disease to spread faster +" + getSpreadBonus(SpreadIndex) + "%");
-            System.out.println("-------------------------------------------------------");
         } catch (Exception e) {
             System.err.println("An error occurred during execution: " + e.getMessage());
             e.printStackTrace();

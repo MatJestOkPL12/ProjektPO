@@ -10,6 +10,7 @@ import ResearchTeam.ResearchTeam;
 import Word.Country;
 import Word.Europe;
 
+import javax.swing.*;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -28,6 +29,7 @@ public class UI { //Klasa odpowiedzialna za cały wygląd gry. Ekrany stratowe, 
 
 
     }
+    public UI(){}
 
     private int day = 0;
     Europe europe;
@@ -44,35 +46,32 @@ public class UI { //Klasa odpowiedzialna za cały wygląd gry. Ekrany stratowe, 
 
 
     public void showHomeScreen() {
-        horizontalCentre();
+        horizontal(76);
         System.out.print("Welcome in the ITE-12.73 Game.");
-        //te wszystkie system.out.printy sa po to zeby wszystko wygladało ladniej, byly odstępy, równo itp
         System.out.println();
-        System.out.println();
-        System.out.println();
-        horizontalCentre();
-        System.out.println("Write \"start\" to Start the game");
-        verticalCentre();
+        horizontal(76);
+        System.out.print("Write \"start\" to Start the game");
+        vertical(17);
     }//Metoda wyswietlana ekranu startowego
 
     public void chooseDisease() {
-        verticalCentre();
-        horizontalCentre();
+        vertical(24);
+        horizontal(60);
         System.out.println("                     Choose your disease: ");
         System.out.println();
         System.out.println();
-        horizontalCentre2();
-        System.out.println("  Virus: \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t   Bacteria:");
-        horizontalCentre2();
+        horizontal(35);
+        System.out.println("  Virus: \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t   Bacteria:");
+        horizontal(35);
         System.out.println("- faster spread in Word.Europe\t\t\t\t\t\t\t\t\t\t\t\t - most resistant");
-        horizontalCentre2();
+        horizontal(35);
         System.out.println("- Fewer upgrades but they are more expensive\t\t\t\t\t\t\t\t\t - More upgrades, but they are cheaper");
         System.out.println();
         System.out.println();
         System.out.println();
-        horizontalCentre();
+        horizontal(57);
         System.out.print("      If you want to play as VIRUS press 1, or as BACTERIA press 2 ");
-        verticalCentre();
+        vertical(13);
 
         int chooseOfDisease = scanner.nextInt();
         scanner.nextLine();
@@ -89,59 +88,30 @@ public class UI { //Klasa odpowiedzialna za cały wygląd gry. Ekrany stratowe, 
 
     public void displayStartMessage() {
         clearConsole();
-        horizontalCentre();
+        horizontal(60);
+        System.out.print("                    Day 0 ");
+        System.out.println();
+        horizontal(61);
         if (diseaseAgent instanceof Virus) {
             diseaseAgent.changeIsVirus();
             ((Virus) diseaseAgent).DrawPropertiesOfVirus();
-            System.out.print("          You are playing as Virus");
+            System.out.print("          You are playing as Virus!");
         } else if (diseaseAgent instanceof Bacteria) {
             diseaseAgent.changeIsBaceria();
             ((Bacteria) diseaseAgent).DrawPropertiesOfBacteria();
-            System.out.print("          You are playing as Bacteria");
+            System.out.print("          You are playing as Bacteria!");
         }
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        horizontalCentre();
-        System.out.print("                    Day 0 ");
-        System.out.println();
-        System.out.println();
-        horizontalCentre();
+        vertical(4);
+        horizontal(50);
         System.out.print("In the next day your disease will start spread in random country in Europe");
         System.out.println();
-        horizontalCentre();
+        horizontal(57);
         System.out.print("            Press \"Enter\" to start the day 1");
-        verticalCentre();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
+        vertical(14);
         scanner.nextLine();
         ;
 
     } // Metoda wyswietlająca początkowe  informacje - czym gracz gra itp
-
-    private void verticalCentre() {
-        for (int i = 0; i < 24; i++) {
-            System.out.println();
-        }
-    } // Wysrodkowanie pionowe
-
-    private void horizontalCentre() {
-        for (int i = 0; i < 80; i++) {
-            System.out.print(" ");
-        }
-    } // Wyśrodkowanie poziome
-
-    private void horizontalCentre2() {
-        for (int i = 0; i < 50; i++) {
-            System.out.print(" ");
-        }
-    } // Wyśrodkowanie poziome 2
-    // Te wypośrodkowania trzeba zmienic troche wsm żeby lepiej dzialaly pozniej to zrobie bo wlasnie wymyslilem jak
 
     public void clearConsole() {
         for (int i = 0; i < 30; i++) {
@@ -153,6 +123,23 @@ public class UI { //Klasa odpowiedzialna za cały wygląd gry. Ekrany stratowe, 
         showGlobalStatistic();
         game.DrawTheFirstInfectedCountry();
         showMenu();
+
+        if(researchTeam.getProgressInResearch() == 100){
+            clearConsole();
+            vertical(12);
+            horizontal(74);
+            System.out.print("You Lose! Try ones again");
+            vertical(17);
+            scanner.nextLine();
+
+        }
+        if(europe.getGlobalHealthStatus() == 0){
+            clearConsole();
+            vertical(12);
+            horizontal(74);
+            System.out.print("You Win! Congratulations");
+            vertical(17);
+        }
 
     } // Metoda odpowiedzialna za rozgrywke
 
@@ -183,79 +170,80 @@ public class UI { //Klasa odpowiedzialna za cały wygląd gry. Ekrany stratowe, 
             }
         }
 
-        System.out.println("------------------------------------------------------------------------------------------" +
-                "------------------------------------------------------------------------------------------");
-        System.out.println();
+        System.out.println("-----------------------------------------------------------------------------------------------------------------------------------------------------------------------");
         System.out.println("Number of infection countries : " + infectionCountries);
         System.out.println("Number of not infection countries : " + notInfectionCountries);
         System.out.println("Global health status - " + String.format("%.2f", europe.getGlobalHealthStatus()) + "%");
         System.out.println("Drug research progress - " + String.format("%.2f", researchTeam.getProgressInResearch()) + "%");
         System.out.println("Number of infection people - " + europe.getNumberOfInfectionPeopleInEurope());
-        System.out.println("-------------------------------");
-        for(int i = 0; i<49; i++){
+        System.out.println("Points - " + points);
+        System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 
-        }
         infectionCountries = 0;
         notInfectionCountries = 0;
-        System.out.println();
-        System.out.println();
-        System.out.println();
+       vertical(2);
 
     } // Pokazuje statystyki dotyczace calej europy, zarazone i niezarazone kraje, % badania leku i zarazonej europy
     public void showMenu()
     {
         int exit = 0;
         do {
-        horizontalCentre();
-        System.out.print("Points: " + points);
-        System.out.println();
-        horizontalCentre();
-        System.out.print("Choose what you want to do");
-        System.out.println();
-        horizontalCentre();
-        System.out.print("1 - Moving to next day");
-        System.out.println();
-        horizontalCentre();
-        System.out.print("2 - Upgrade your disease [Cost: 100 points]");
-        System.out.println();
-        horizontalCentre();
-        System.out.print("3 - Show your disease statistic");
-        System.out.println();
-        horizontalCentre();
-        System.out.print("4 - Exit Game");
+            try {
 
-        int choice = scanner.nextInt();
-        scanner.nextLine();
 
-        switch (choice) {
-            case 1: {
-                nextDay();
-                showGlobalStatistic();
-                break;
-            }
-            case 2:{
-                if (points >= 100){
-                    points = points - 100;
-                    game.triggerMutationEvent();
+                horizontal(75);
+                System.out.print("Choose what you want to do");
+                System.out.println();
+                horizontal(75);
+                System.out.print("1 - Moving to next day");
+                System.out.println();
+                horizontal(75);
+                System.out.print("2 - Upgrade your disease [Cost: 100 points]");
+                System.out.println();
+                horizontal(75);
+                System.out.print("3 - Show your disease statistic");
+                System.out.println();
+                horizontal(75);
+                System.out.print("4 - Exit Game");
+                vertical(6);
 
-                }else{
-                    System.out.println("You have not enough money to upgrade!");
+                int choice = scanner.nextInt();
+                scanner.nextLine();
+
+                switch (choice) {
+                    case 1: {
+                        nextDay();
+                        showGlobalStatistic();
+                        break;
+                    }
+                    case 2: {
+                        if (points >= 100) {
+                            points = points - 100;
+                            //game.triggerMutationEvent();
+                            upgradeStatisticMenu(diseaseAgent);
+
+                        } else {
+                            System.out.println("You have not enough money to upgrade!");
+                        }
+                        break;
+                    }
+                    case 3: {
+                        showDiseaseStatistic(diseaseAgent);
+                        break;
+                    }
+                    case 4: {
+                        exit = -1;
+                    }
                 }
-                break;
             }
-            case 3: {
-                showDiseaseStatistic(diseaseAgent);
-                break;
+            catch (Exception e){
+                System.out.println("Unexpected error, please try again. " + e.getMessage());
             }
-            case 4:{
-                exit = -1;
-            }
-        }
-    }while (europe.getGlobalHealthStatus() != 0 && researchTeam.getProgressInResearch() != 100 && exit == 0);
+            } while (europe.getGlobalHealthStatus() != 0 && researchTeam.getProgressInResearch() != 100 && exit == 0) ;
+
+
 
     } // Pokazuje manu graczowi i umozliwoa dokonania wyboru co chce dalej zribic
-
-
 
     public void nextDay(){
         day++;
@@ -273,77 +261,151 @@ public class UI { //Klasa odpowiedzialna za cały wygląd gry. Ekrany stratowe, 
         }
         if (day % (random.nextInt(20) + 5) == 0)  {
             DrugDevelopmentEvent developmentevent = new DrugDevelopmentEvent();
-            developmentevent.Execute();
+            developmentevent.Execute(diseaseAgent);
         }
         if (day % (random.nextInt(10) + 5) == 0)  {
             EpidemicSpreadEvent spreadevent = new EpidemicSpreadEvent();
-            spreadevent.Execute();
+            spreadevent.Execute(diseaseAgent);
         }
-    }//Jeszce nie dokonczona, ale po prostu przechodzenie do kolejnego dnia
+    }
+
+    public void upgradeStatisticMenu(DiseaseAgent diseaseAgent){
+        clearConsole();
+        horizontal(72);
+        System.out.print("Every upgrade cost 100 points");
+        if(diseaseAgent instanceof Bacteria){
+            vertical(2);
+            horizontal(72);
+            System.out.print("Reproducing speed +5 - press 1");
+            System.out.println();
+            horizontal(72);
+            System.out.print("Drug resistance +5 - press 2");
+            vertical(15);
+            int upgradeChoice = scanner.nextInt();
+            clearConsole();
+            switch (upgradeChoice){
+                case 1: ((Bacteria) diseaseAgent).setReproducingSpeed(5); break;
+                case 2: ((Bacteria) diseaseAgent).setDrugResistance(5); break;
+                default:{
+                    System.out.println("Error, pres any button to proceed");
+                    scanner.nextLine();
+                    break;
+                }
+            }
+
+        }
+        else if (diseaseAgent instanceof Virus){
+            vertical(2);
+            horizontal(72);
+            System.out.print("Reproducing speed (+5) - press 1");
+            System.out.println();
+            horizontal(72);
+            System.out.print("Environmental resistance (+5) - press 2");
+            System.out.println();
+            horizontal(72);
+            System.out.print("Drug resistance (+5) - press 3");
+            vertical(15);
+            int upgradeChoice = scanner.nextInt();
+            clearConsole();
+            switch (upgradeChoice){
+                case 1:{
+                    ((Virus) diseaseAgent).setReproducingSpeed(5);
+                    break;
+                }
+                case 2:{
+                    ((Virus) diseaseAgent).setEnvironmentalResistance(5);
+                    break;
+                }
+                case 3:{
+                    ((Virus) diseaseAgent).setDrugResistance(5);
+                    break;
+                }
+                default:{
+                    System.out.println("Error, pres any button to proceed");
+                    scanner.nextLine();
+                    break;
+                }
+            }
+        }
+    }
 
     public void showDiseaseStatistic(DiseaseAgent diseaseAgent) {
         String type = "";
         if (diseaseAgent instanceof Bacteria) {
             clearConsole();
             type = "Bacteria";
-            verticalCentre();
-            horizontalCentre();
+            vertical(24);
+            horizontal(80);
             System.out.print("Name - " + diseaseAgent.getName());
             System.out.println();
-            horizontalCentre();
+            horizontal(80);
             System.out.print("Type - " + type);
             System.out.println();
-            horizontalCentre();
-            System.out.print("Drug resistance - " + diseaseAgent.getDrugResistance());
+            horizontal(80);
+            System.out.print("Drug resistance - " + ((Bacteria) diseaseAgent).getDrugResistance());
             System.out.println();
-            horizontalCentre();
+            horizontal(80);
             System.out.print("Reproducing method - " + ((Bacteria) diseaseAgent).getReproducingMethod());
             System.out.println();
-            horizontalCentre();
+            horizontal(80);
             System.out.print("Reproducing speed - " + ((Bacteria) diseaseAgent).getReproducingSpeed());
             System.out.println();
-            horizontalCentre();
+            horizontal(80);
             System.out.print("Is toxigencity - " + ((Bacteria) diseaseAgent).getToxigencity());
             System.out.println();
-            horizontalCentre();
+            horizontal(80);
             System.out.print("Is survival in hard condition - " + ((Bacteria) diseaseAgent).getSurvivalInHardCondition());
-            verticalCentre();
+            System.out.println();
+            horizontal(80);
+           vertical(12);
 
 
             scanner.nextLine();
+            clearConsole();
 
 
         }
-        if (diseaseAgent instanceof Virus) {
+        else if (diseaseAgent instanceof Virus) {
             clearConsole();
             type = "Virus";
-            verticalCentre();
-            horizontalCentre();
+            vertical(24);
+            horizontal(80);
             System.out.print("Name - " + diseaseAgent.getName());
             System.out.println();
-            horizontalCentre();
+            horizontal(80);
             System.out.print("Type - " + type);
             System.out.println();
-            horizontalCentre();
-            System.out.print("Drug resistance - " + diseaseAgent.getDrugResistance());
+            horizontal(80);
+            System.out.print("Drug resistance - " + ((Virus) diseaseAgent).getDrugResistance());
             System.out.println();
-            horizontalCentre();
+            horizontal(80);
             System.out.print("Transmission mode - " + ((Virus) diseaseAgent).getTransmissionMode());
             System.out.println();
-            horizontalCentre();
+            horizontal(80);
             System.out.print("Replication speed - " + ((Virus) diseaseAgent).getReplicationSpeed());
             System.out.println();
-            horizontalCentre();
+            horizontal(80);
             System.out.print("Environmental resistance  - " + String.format("%.2f", ((Virus) diseaseAgent).getEnvironmentalResistance()));
             System.out.println();
-            horizontalCentre();
-            verticalCentre();
+            horizontal(80);
+            vertical(12);
 
             scanner.nextLine();
+            clearConsole();
 
         }
     }// Metoda pokazuje statystyki choroby
 
+    public void vertical(int i){
+        for (int j = 0; j < i; j++) {
+            System.out.println();
+        }
+    }//pion
+    public void horizontal(int i){
+        for (int j = 0; j < i; j++) {
+            System.out.print(" ");
+        }
+    }//poziom
 
 
 

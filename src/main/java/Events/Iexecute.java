@@ -1,5 +1,7 @@
 package Events;
 
+import Disease.DiseaseAgent;
+
 public interface Iexecute {
-    void Execute();
+    void Execute(DiseaseAgent agent);
 }

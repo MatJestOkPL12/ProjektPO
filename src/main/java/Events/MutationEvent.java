@@ -73,11 +73,11 @@ public class MutationEvent implements Iexecute, Event {
     }
 
     @Override
-    public void Execute() {
+    public void Execute(DiseaseAgent agent) {
         int mutationIndex = (int) (Math.random() * mutationName.length);
         int resistanceIndex = (int) (Math.random() * mutationResistanceName.length);
 
-        DiseaseAgent agent = getTargetDiseaseAgent();
+
         applyMutation(agent, mutationIndex);
         applyResistance(agent, resistanceIndex);
 
@@ -89,22 +89,5 @@ public class MutationEvent implements Iexecute, Event {
         System.out.println("-------------------------------------------------------");
     }
 
-    private DiseaseAgent getTargetDiseaseAgent() {
-        return new DiseaseAgent() {
-            @Override
-            public void mutate() {
-                // Custom mutation logic can be added here
-            }
 
-            @Override
-            public void applyMutation(int mutationIndex) {
-                // Custom mutation application logic
-            }
-
-            @Override
-            public void applyResistance(int resistanceIndex) {
-                // Custom resistance application logic
-            }
-        }; // Placeholder method, should be implemented to get the actual target DiseaseAgent
-    }
 }

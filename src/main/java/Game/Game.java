@@ -16,23 +16,7 @@ public class Game {
 
     public Game(){
 
-        this.researchTeam = new ResearchTeam(europe);
-        this.diseaseAgent = new DiseaseAgent() {
-            @Override
-            public void mutate() {
-
-            }
-
-            @Override
-            public void applyMutation(int mutationIndex) {
-
-            }
-
-            @Override
-            public void applyResistance(int resistanceIndex) {
-
-            }
-        };
+        this.researchTeam = new ResearchTeam(europe, diseaseAgent);
         this.scanner = new Scanner(System.in);
         this.ui = new UI(scanner, this, europe, researchTeam, diseaseAgent, mutationEvent );
     }
@@ -46,7 +30,7 @@ public class Game {
     private Scanner scanner;
     private UI ui;
     private MutationEvent mutationEvent;
-
+    public static int points = 0;
 
     //Metoda startująca rozgrywke
     public void start() throws IOException {
@@ -95,26 +79,47 @@ public class Game {
         }
             Random random = new Random();
             int randomNumber = random.nextInt(11); // Zmienna odpowadająca za to czy wirus przeniesie sie do innego kraju czy nie, np jesli wylosuje sie liczba między 5-10 choroba zostanie przeniesiona do innego kraju
-            if(numberOfInfectionCountries <15){
-                if(randomNumber>=5){
-                    int newPossiblyInfectionCountry = random.nextInt(50);
-                        if(!countries[newPossiblyInfectionCountry].getInfectionStatus()){
-                            countries[newPossiblyInfectionCountry].changeInfectionStatus();
-                            countries[newPossiblyInfectionCountry].setInfectionPeople(1);
+            if(numberOfInfectionCountries <15) {
+                if (randomNumber >= 2) {
+                    int newPossiblyInfectionCountry = random.nextInt(49);
+                    if (!countries[newPossiblyInfectionCountry].getInfectionStatus()) {
+                        countries[newPossiblyInfectionCountry].changeInfectionStatus();
+                        countries[newPossiblyInfectionCountry].setInfectionPeople(1);
+                        if (randomNumber > 5) {
+                            if (!countries[newPossiblyInfectionCountry + 1].getInfectionStatus()) {
+                                countries[newPossiblyInfectionCountry + 1].changeInfectionStatus();
+                                countries[newPossiblyInfectionCountry + 1].setInfectionPeople(1);
+                                if (!countries[newPossiblyInfectionCountry + 2].getInfectionStatus()) {
+                                    countries[newPossiblyInfectionCountry + 2].changeInfectionStatus();
+                                    countries[newPossiblyInfectionCountry + 2].setInfectionPeople(1);
+                                }
+                            }
                         }
+                    }
                 }
             }
-            else if (numberOfInfectionCountries >=15 && numberOfInfectionCountries < 34){
-                if(randomNumber >3){
-                    int newPossiblyInfectionCountry = random.nextInt(50);
-                        if(!countries[newPossiblyInfectionCountry].getInfectionStatus()){
+                if (numberOfInfectionCountries >= 15 && numberOfInfectionCountries < 34) {
+                    if (randomNumber > 1) {
+                        int newPossiblyInfectionCountry = random.nextInt(49);
+                        if (!countries[newPossiblyInfectionCountry].getInfectionStatus()) {
                             countries[newPossiblyInfectionCountry].changeInfectionStatus();
                             countries[newPossiblyInfectionCountry].setInfectionPeople(1);
+                            if (randomNumber > 3) {
+                                if (!countries[newPossiblyInfectionCountry + 1].getInfectionStatus()) {
+                                    countries[newPossiblyInfectionCountry + 1].changeInfectionStatus();
+                                    countries[newPossiblyInfectionCountry + 1].setInfectionPeople(1);
+                                    if (!countries[newPossiblyInfectionCountry + 2].getInfectionStatus()) {
+                                        countries[newPossiblyInfectionCountry + 2].changeInfectionStatus();
+                                        countries[newPossiblyInfectionCountry + 2].setInfectionPeople(1);
+                                    }
+                                }
+                            }
                         }
+                    }
                 }
-            }
 
-            else if(numberOfInfectionCountries >= 34){
+
+             if(numberOfInfectionCountries >= 34){
                 for(int j = 0; j<49; j++){
                     if(!countries[j].getInfectionStatus()){
                         countries[j].changeInfectionStatus();
@@ -130,7 +135,7 @@ public class Game {
 
     void triggerMutationEvent() {
         MutationEvent mutationEvent = new MutationEvent();
-        mutationEvent.Execute();
+        mutationEvent.Execute(diseaseAgent);
     }
     public void getPoints(){
         Random random = new Random();
@@ -140,7 +145,6 @@ public class Game {
             points = points + random.nextInt(100) + 10;
         }
     }
-    public static int points = 0;
 
 
     public Country[] getCountriesInMainArr(){

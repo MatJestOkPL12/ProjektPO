@@ -59,9 +59,6 @@ public abstract class DiseaseAgent {
         return rateOfSpread;
     }
 
-    public double getDrugResistance() {
-        return drugResistance;
-    }
     public String getName(){
         return name;
     }

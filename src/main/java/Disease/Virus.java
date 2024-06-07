@@ -10,11 +10,12 @@ public class Virus extends DiseaseAgent implements Idiesease {
             "Droplet transmission", "Direct contact", "Indirect contact", "Vector-borne transmission", "BloodBorne transmission"
     };
     private double[] replicationSpeedArr = new double[]{
-            12.1, 10.1, 9.3, 8.1, 7.0
+            14.1, 12.1, 11.3, 10.1, 9.0
     };
     private double replicationSpeed;
     private String transmissionMode;
     private double environmentalResistance;
+
 
     private MutationEvent mutationEvent;
 
@@ -24,6 +25,7 @@ public class Virus extends DiseaseAgent implements Idiesease {
     }
 
     public void DrawPropertiesOfVirus() {
+        drugResistance= 0.0;
         Random random = new Random();
         int randomNumberToChoiceOfArrays = random.nextInt(5);
         environmentalResistance = random.nextDouble() * 10;
@@ -77,4 +79,11 @@ public class Virus extends DiseaseAgent implements Idiesease {
     public double getReplicationSpeed(){return replicationSpeed;}
     public String getTransmissionMode(){return transmissionMode;}
     public double getEnvironmentalResistance(){return environmentalResistance;}
+    public void setReproducingSpeed(int i ){
+        replicationSpeed +=i;
+    }
+    public void setEnvironmentalResistance(int i){environmentalResistance +=i;}
+    public void setDrugResistance(int i){drugResistance += i;}
+
+    public double getDrugResistance(){return drugResistance;}
 }
