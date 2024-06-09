@@ -6,6 +6,10 @@ public class MutationEvent implements Iexecute, Event {
     private double mutationRate;
     private String type = "Mutation Event";
 
+    /**
+     * Tak jak w przypadku innych tablic sa tu możliwe nazwy i wielkości ich bonusów które są na odpowiadających miejsach w tablicy
+     * Air transmision jest na indeksie 0 wiec wielkość jego bonusu rónież jest na ndeksie 0
+     */
     private String[] mutationName = new String[]{
             "Air transmission", "Water transmission", "Animal transmission", "Physical transmission",
             "Respiratory Symptoms", "Gastrointestinal Symptoms", "Genetic mutation", "Cough",
@@ -28,6 +32,10 @@ public class MutationEvent implements Iexecute, Event {
             12.5, 6.7, 9.4, 5.5, 5.5, 7.8, 10.0, 8.5, 9.0
     };
 
+    /**
+     * Gettery potrzebych pól
+     * @return
+     */
     public String[] getMutationNameArr() {
         return mutationName;
     }
@@ -60,12 +68,22 @@ public class MutationEvent implements Iexecute, Event {
         return resistanceBonus[i];
     }
 
+    /**
+     * Metoda aplikująca mutacje do naszej choroby
+     * @param agent
+     * @param mutationIndex
+     */
     public void applyMutation(DiseaseAgent agent, int mutationIndex) {
         if (mutationIndex >= 0 && mutationIndex < mutationBonus.length) {
             agent.increaseRateOfSpread(mutationBonus[mutationIndex]);
         }
     }
 
+    /**
+     * Metoda aplikująca ochrone przed lekiem dla naszej choroby
+     * @param agent
+     * @param resistanceIndex
+     */
     public void applyResistance(DiseaseAgent agent, int resistanceIndex) {
         if (resistanceIndex >= 0 && resistanceIndex < resistanceBonus.length) {
             agent.increaseDrugResistance(resistanceBonus[resistanceIndex]);
@@ -73,6 +91,10 @@ public class MutationEvent implements Iexecute, Event {
     }
 
     @Override
+    /**
+     * Metoda która wywołuje oraz wybiera nam jakąś losową wybraną mutacje dla naszej choroby przez co  staje sie ona
+     * silniejsza
+     */
     public void Execute(DiseaseAgent agent) {
         int mutationIndex = (int) (Math.random() * mutationName.length);
         int resistanceIndex = (int) (Math.random() * mutationResistanceName.length);

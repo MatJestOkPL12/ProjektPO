@@ -17,11 +17,15 @@ public abstract class DiseaseAgent {
         this.drugResistance = 0.0;
     }
 
-    public abstract void mutate();
-
+    /**
+     * Abstakcyjne metody aplikowania mutacji i obrony przed lekami rozbudowane w klasie bakteria i wirus
+     * @param mutationIndex
+     *
+     */
     public abstract void applyMutation(int mutationIndex);
 
     public abstract void applyResistance(int resistanceIndex);
+
 
     public void spread(Country[] countries) {
 
@@ -45,16 +49,29 @@ public abstract class DiseaseAgent {
         }
     }
 
+    /**
+     * Metoda która zwiększa szybkość przenoszenia choroby
+     * @param bonus
+     */
     public void increaseRateOfSpread(double bonus) {
         this.rateOfSpread += bonus;
         System.out.println("Rate of spread increased by: " + bonus);
     }
+
+    /**
+     * Metoda która zwiększa odporność na leki
+     * @param bonus
+     */
 
     public void increaseDrugResistance(double bonus) {
         this.drugResistance += bonus;
         System.out.println("Drug resistance increased by: " + bonus);
     }
 
+    /**
+     * Gettery i settery potrzebnych pól
+     * @return
+     */
     public double getRateOfSpread() {
         return rateOfSpread;
     }

@@ -12,7 +12,7 @@ public class Country {
     private double healthLevel=100;
     private String climate;
     private boolean infectionStatus = false;
-    private double sanitationCondition=100; // Okresla w jakim stanie jest kondycja szpitali i lekarzy w danym kraju - pomysl byl taki zeby tam im nizsza tym wolniej rósł postęp nad badaniami leku ale nie wiem czy to sie przuda wsm XD
+
 
     private long infectionPeople = 0;
 
@@ -24,6 +24,11 @@ public class Country {
         setHealthLevel() ;
 
     };
+
+    /**
+     * Gettery i setery dla potrzebnych pól z danej klasy
+     * @return
+     */
 
     public double setHealthLevel(){
         return healthLevel;

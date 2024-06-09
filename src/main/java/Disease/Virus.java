@@ -6,6 +6,11 @@ import Word.Country;
 import java.util.Random;
 
 public class Virus extends DiseaseAgent implements Idiesease {
+    /**
+     * Tablice które zawierają dane o mozliwych mozliwościach przenoszenia choroby i jej szybkości
+     * Miejsca w tablicy transmissionModeArr odowiadają miejscami w tablicy replicationSpeedArr, to znaczy, że np
+     * BlooodBorne transmission jest na miejscu o indeksie 4 więc jego szybkość jest ustalona w drugiej tablicy na indeksie również 4
+     */
     private String[] transmissionModeArr = new String[]{
             "Droplet transmission", "Direct contact", "Indirect contact", "Vector-borne transmission", "BloodBorne transmission"
     };
@@ -15,8 +20,6 @@ public class Virus extends DiseaseAgent implements Idiesease {
     private double replicationSpeed;
     private String transmissionMode;
     private double environmentalResistance;
-
-
     private MutationEvent mutationEvent;
 
     public Virus(MutationEvent mutationEvent) {
@@ -24,6 +27,9 @@ public class Virus extends DiseaseAgent implements Idiesease {
         this.mutationEvent = mutationEvent;
     }
 
+    /**
+     * Metoda któa losuje właściowości wirusa t
+     */
     public void DrawPropertiesOfVirus() {
         drugResistance= 0.0;
         Random random = new Random();
@@ -39,9 +45,16 @@ public class Virus extends DiseaseAgent implements Idiesease {
         applyMutation(mutationIndex);
     }
 
-    //Metoda odpowiedzialna za zarazanie ludzi
+    /**
+     * Metoda odpowiedzialna za zarażanie ludzi
+     * @param countries
+     */
     @Override
     public void spread(Country[] countries) {
+        /**
+         * Pętla najpier sprawdza czy dany kraj ma jakąś zarażoną osobe na terenie swojego kraju, jeśli nie nic się nie dzieje
+         * jesli tak kolejne osoby są zarażane
+         */
         for(int i = 0; i<49; i++){
             if(!countries[i].getInfectionStatus()){
                 continue;
@@ -60,6 +73,10 @@ public class Virus extends DiseaseAgent implements Idiesease {
         }
     }
 
+    /**
+     * Metoda aplikuje losowa mutacje i bonsy dla naszego wirusa
+     * @param mutationIndex
+     */
     @Override
     public void applyMutation(int mutationIndex) {
         if (mutationIndex >= 0 && mutationIndex < mutationEvent.getMutationNameArr().length) {
@@ -67,6 +84,10 @@ public class Virus extends DiseaseAgent implements Idiesease {
         }
     }
 
+    /**
+     * Metoda aplikuje pewną odporność na tworzone leki, przez co cięzej wytworzyć lekarstwo
+     * @param resistanceIndex
+     */
     @Override
     public void applyResistance(int resistanceIndex) {
         if (resistanceIndex >= 0 && resistanceIndex < mutationEvent.getMutationResistanceNameArr().length) {
@@ -75,7 +96,10 @@ public class Virus extends DiseaseAgent implements Idiesease {
     }
 
 
-    //Gettery pól
+    /**
+     * Getery i settery potrzebych pól
+     * @return
+     */
     public double getReplicationSpeed(){return replicationSpeed;}
     public String getTransmissionMode(){return transmissionMode;}
     public double getEnvironmentalResistance(){return environmentalResistance;}

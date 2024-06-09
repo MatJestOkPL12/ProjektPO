@@ -44,7 +44,9 @@ public class UI { //Klasa odpowiedzialna za cały wygląd gry. Ekrany stratowe, 
         return diseaseAgent;
     }
 
-
+    /**
+     * Metoda która wyswietla ekran startowy
+     */
     public void showHomeScreen() {
         horizontal(76);
         System.out.print("Welcome in the ITE-12.73 Game.");
@@ -52,8 +54,13 @@ public class UI { //Klasa odpowiedzialna za cały wygląd gry. Ekrany stratowe, 
         horizontal(76);
         System.out.print("Write \"start\" to Start the game");
         vertical(17);
-    }//Metoda wyswietlana ekranu startowego
+    }
 
+    /**
+     * Metoda która pozwala nam wybrać czy chcemy grać wirusem czy bakterią
+     * 1 - wirus
+     * 2 - bakteria
+     */
     public void chooseDisease() {
         vertical(24);
         horizontal(60);
@@ -84,8 +91,11 @@ public class UI { //Klasa odpowiedzialna za cały wygląd gry. Ekrany stratowe, 
         } else {
             System.out.println("Wrong choice");
         }
-    }//Metoda dajaca graczowi wybór czy wirus czy bakteria
+    }
 
+    /**
+     * Metoda któa wyswietla początkowe informacje graczowi
+     */
     public void displayStartMessage() {
         clearConsole();
         horizontal(60);
@@ -111,13 +121,16 @@ public class UI { //Klasa odpowiedzialna za cały wygląd gry. Ekrany stratowe, 
         scanner.nextLine();
         ;
 
-    } // Metoda wyswietlająca początkowe  informacje - czym gracz gra itp
+    }
 
+    /**
+     * Czyszczenie konsoli
+     */
     public void clearConsole() {
         for (int i = 0; i < 30; i++) {
             System.out.println();
         }
-    } // Czyśli terminal
+    }
 
     public void gameplay(DiseaseAgent diseaseAgent){
         showGlobalStatistic();
@@ -141,7 +154,15 @@ public class UI { //Klasa odpowiedzialna za cały wygląd gry. Ekrany stratowe, 
             vertical(17);
         }
 
-    } // Metoda odpowiedzialna za rozgrywke
+    }
+
+    /**
+     * Metoda pokazująca graczowi globalne statystyki świata takie jak
+     * Ilość zarażonych i niezarażinych kraji
+     * % wynalezienia lekarstwa
+     * % zarażenia całej europy
+     * punkty
+     */
 
     public void showGlobalStatistic(){
         int infectionCountries = 0;
@@ -183,9 +204,16 @@ public class UI { //Klasa odpowiedzialna za cały wygląd gry. Ekrany stratowe, 
         notInfectionCountries = 0;
        vertical(2);
 
-    } // Pokazuje statystyki dotyczace calej europy, zarazone i niezarazone kraje, % badania leku i zarazonej europy
-    public void showMenu()
-    {
+    }
+
+    /**
+     * Metoda któa odpowiada za to co gracz chce zrobić w kolejnym kroku
+     * 1 - następny dzien
+     * 2 - ulepszenie choroby
+     * 3 - pokazanie statystyk choroby
+     * 4 - wyjscie z gry
+     */
+    public void showMenu() {
         int exit = 0;
         do {
             try {
@@ -243,8 +271,11 @@ public class UI { //Klasa odpowiedzialna za cały wygląd gry. Ekrany stratowe, 
 
 
 
-    } // Pokazuje manu graczowi i umozliwoa dokonania wyboru co chce dalej zribic
+    }
 
+    /**
+     * Metoda która przenosi nas do następnego dnia, w niej też implikowane są wszystkie metody zarażania eventów losowych itp
+     */
     public void nextDay(){
         day++;
         clearConsole();
@@ -255,6 +286,10 @@ public class UI { //Klasa odpowiedzialna za cały wygląd gry. Ekrany stratowe, 
             europe.changeGlobalHealthStatus(game.getCountriesInMainArr());
             researchTeam.WorkOnDrug();
         }
+        /**
+         * Poniżej kod który odpowiada za losowe wydarzenia takie jak development event czy spread evet które są
+         * które są wwoływane w losowym momcencie rozgrywki
+         */
         System.out.println("Welcome in Day " + day);
         if (day % (random.nextInt(3) + 1) == 0) {
             game.getPoints();
@@ -268,6 +303,14 @@ public class UI { //Klasa odpowiedzialna za cały wygląd gry. Ekrany stratowe, 
             spreadevent.Execute(diseaseAgent);
         }
     }
+
+    /**
+     * Metoda któa daje nam możliwość ulepszenia naszej choroby
+     * zawiera takie ulepszenia jak szybkosc rozprzestrzeniania
+     * odporność na leki
+     * odporność na środowisko
+     * @param diseaseAgent
+     */
 
     public void upgradeStatisticMenu(DiseaseAgent diseaseAgent){
         clearConsole();
@@ -328,6 +371,11 @@ public class UI { //Klasa odpowiedzialna za cały wygląd gry. Ekrany stratowe, 
             }
         }
     }
+
+    /**
+     * Metoda pokazuje wszystkie statystyki choroby gracza
+     * @param diseaseAgent
+     */
 
     public void showDiseaseStatistic(DiseaseAgent diseaseAgent) {
         String type = "";
@@ -396,16 +444,22 @@ public class UI { //Klasa odpowiedzialna za cały wygląd gry. Ekrany stratowe, 
         }
     }// Metoda pokazuje statystyki choroby
 
+    /**
+     * Metody które są odpowiedzialne za wygląd gry ukazywanej w terminalu
+     * vertical - jest odpowiedzialna za ustawianie wyśwetlanych napisów w pionie
+     * horizontal - jest odpowiedzialny za ustawianie wyświetlanych napisów w poziomie
+     * @param i
+     */
     public void vertical(int i){
         for (int j = 0; j < i; j++) {
             System.out.println();
         }
-    }//pion
+    }
     public void horizontal(int i){
         for (int j = 0; j < i; j++) {
             System.out.print(" ");
         }
-    }//poziom
+    }
 
 
 
